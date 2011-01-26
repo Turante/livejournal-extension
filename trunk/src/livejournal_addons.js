@@ -1554,7 +1554,7 @@ function ljaddUnfoldAllPagesInit(forceLight, doc) {
 			"<img id='livejournal_addons_Stop' style='border:0px none;vertical-align:text-top;margin-right:5px' src='" + chrome.extension.getURL("images/stop.png") + "'>" +
 			"<img style='border:0px none;vertical-align:text-top;margin-right:5px' src='" + chrome.extension.getURL("images/throbber.gif") + "'>" +
 			Strings.loading +
-			"... #<cpan id='livejournal_addons_counterSpan'></span>";
+			"... #<span id='livejournal_addons_counterSpan'></span>";
 		body.appendChild(counterDiv);
 		var container = doc.createElement('div');
 		container.style.display = 'none';
@@ -1680,7 +1680,7 @@ function ljaddUnfoldPageCommentsInit(forceLight, doc) {
 		"<img id='livejournal_addons_Stop' style='border:0px none;vertical-align:text-top;margin-right:5px' src='" + chrome.extension.getURL("images/stop.png") + "'>" +
 		"<img style='border:0px none;vertical-align:text-top;margin-right:5px' src='" + chrome.extension.getURL("images/throbber.gif") + "'>" +
 		Strings.loading +
-		"... <cpan id='livejournal_addons_counterSpan'></span>";
+		"... <span id='livejournal_addons_counterSpan'></span>";
 	body.appendChild(counterDiv);
 	var container = doc.createElement('div');
 	container.style.display = 'none';
