@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<project default="zip" name="livejournal_extension">
+	<target name="zip">
+		<delete file="./livejournal_extension.zip">
+		</delete>
+		<zip destfile="./livejournal_extension.zip"
+			basedir="./src"
+			includes="**/*">
+		</zip>
+		
+		<echo>livejournal_extension.zip is created.</echo>
+	</target>
+</project>
