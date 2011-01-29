@@ -132,7 +132,16 @@ display:inline;
 <legend><div class="msg" id="ljaddRefresh"></div></legend>
 <input type="checkbox" id="checking_afterfp"/> <div class="msg" id="ljaddFriendsPageUpdate"></div>
 </fieldset>
-<input type="checkbox" id="checking_showpopup"/> <div class="msg" id="ljaddNotificationOpt"></div>
+<fieldset>
+<legend><input type="checkbox" id="checking_showpopup"/> <div class="msg" id="ljaddNotificationOpt"></div></legend>
+<div class="msg" style="width: 100%;text-align: center;display: block;" id="ljaddNotificationHeadOpen"></div>
+<div class="msg" style="width: 100%;text-align: center;display: block;" id="ljaddNotificationFpOpen"></div>
+<input type="radio" name="checking_postsclickaction"/> <div class="msg" id="ljaddNotificationFpOpenAll"></div>
+<br/>
+<input type="radio" name="checking_postsclickaction"/> <div class="msg" id="ljaddNotificationFpOpenNewRead"></div>
+<br/>
+<input type="radio" name="checking_postsclickaction"/> <div class="msg" id="ljaddNotificationFpOpenNewReply"></div>
+</fieldset>
 <br/>
 <input type="checkbox" id="checking_showbadge"/> <div class="msg" id="ljaddBadgeOpt"></div>
 <fieldset>
@@ -375,6 +384,13 @@ display:inline;
 		<li>Bug with "Icon click action" option was fixed.</li>
 	</ul>
 </ul>
+    <ul>
+    <li>2.2.0</li>
+        <ul>
+            <li>"Result of click on popup" option was added.</li>
+            <li>Popup is hided after 4 seconds.</li>
+        </ul>
+    </ul>
 </div>
 </div>
 

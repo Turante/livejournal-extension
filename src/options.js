@@ -139,6 +139,13 @@ function prepareTab(id)
 		badgeOpt.checked = localStorage.getItem("ljaddBadgeOpt") == "true" ? true : false;
 		badgeOpt.onchange = function(){changed = true;};
 
+        var postsactions = document.getElementsByName("checking_postsclickaction");
+        postsactions[Number(localStorage.getItem("ljaddNotificationFpOpen"))].checked = true;
+        for(var i = 0; i < postsactions.length; i++)
+        {
+            postsactions[i].onchange = function(){changed = true;};
+        }
+
 		var actions = document.getElementsByName("checking_iconaction");
 		actions[Number(localStorage.getItem("ljaddIconClickAction"))].checked = true;
 		for(var i = 0; i < actions.length; i++)
@@ -369,6 +376,8 @@ function apply()
 		else
 			chrome.browserAction.setPopup({popup: ""});
 		chrome.extension.getBackgroundPage().ljaddCheckFriendsPage();
+        var postsAction = document.getElementsByName("checking_postsclickaction");
+        localStorage.setItem("ljaddNotificationFpOpen", postsAction[0].checked ? 0 : postsAction[1].checked ? 1 : 2);
 	}
 	else if(selected == "insets")
 	{

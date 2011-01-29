@@ -475,6 +475,21 @@
 "ljaddActionOpenFP": {
  "message": "Open friend's page"
 },
+"ljaddNotificationHeadOpen": {
+ "message": "Result of click on popup"
+},
+"ljaddNotificationFpOpen": {
+ "message": "friends posts:"
+},
+"ljaddNotificationFpOpenAll": {
+ "message": "Friends page"
+},
+"ljaddNotificationFpOpenNewRead": {
+ "message": "new (read)"
+},
+"ljaddNotificationFpOpenNewReply": {
+ "message": "new (reply)"
+},
 
 
 "ljaddInsets": {
