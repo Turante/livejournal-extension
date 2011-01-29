@@ -11,6 +11,11 @@ var intervalHide = 500;
 var setFullProfile = false;
 var ljaddMainURL = "http://exampleusername.livejournal.com/";
 var ljaddHideCommentFolders = false;
+var ljaddNoStyleMine = "";
+var ljaddMinImageWidthForBrowseOpt = true;
+var ljaddMinImageWidthForBrowse = 100;
+var ljaddUserTips = "";
+var ljaddUserTipsOpt = false;
 var ljaddNoStyleLight = new RegExp(
 	"http://www\\.livejournal\\.com/mobile/" +
 	"|(?:" +
@@ -24,7 +29,6 @@ var ljaddNoStyleLight = new RegExp(
 	")" +
 				"(?:$|\\?|#|calendar\\b|\\d\\d\\d\\d/(?:\\d\\d/\\d\\d/)?|friends\\b)"
 , "i");
-var ljaddNoStyleMine = "";
 var ljaddToLight = new RegExp(
 	"(?:" +
 		"(?:syndicated|community|users)\\.livejournal\\.com/\\w+/" +
@@ -33,10 +37,6 @@ var ljaddToLight = new RegExp(
 	")" +
 		"(?:\\d+\\.html\\b|tag/)"
 , "i");
-var ljaddMinImageWidthForBrowseOpt = true;
-var ljaddMinImageWidthForBrowse = 100;
-var ljaddUserTips = "";
-var ljaddUserTipsOpt = false;
 
 chrome.extension.onRequest.addListener(
 		  function(request, sender, sendResponse)
@@ -57,12 +57,12 @@ function start()
 	{
 		ljStorage = response.storage;
 
-		comUnfolders = (ljStorage["livejournal_addons.ljaddCommentUnfolders"] == "false") ? false : true;
-		ljaddHideCommentFolders = (ljStorage["livejournal_addons.ljaddHideCommentFolders"] == "true") ? true : false;
+		comUnfolders = (ljStorage["livejournal_addons.ljaddCommentUnfolders"] != "false");
+		ljaddHideCommentFolders = (ljStorage["livejournal_addons.ljaddHideCommentFolders"] == "true");
 		if(comUnfolders)
 			ljaddAddCommentUnfolders(document.body);
 
-		var cutUnfolders = (ljStorage["livejournal_addons.ljaddAddCutUnfolders"] == "false") ? false : true;
+		var cutUnfolders = (ljStorage["livejournal_addons.ljaddAddCutUnfolders"] != "false");
 		if(cutUnfolders)
 			ljaddAddCutUnfolders(document.body);
 
@@ -70,7 +70,7 @@ function start()
 				Number(ljStorage["livejournal_addons.ljaddAddTriggersIntervalShow"]) : intervalShow;
 		intervalHide = ljStorage["livejournal_addons.ljaddAddTriggersIntervalHide"] ?
 				Number(ljStorage["livejournal_addons.ljaddAddTriggersIntervalHide"]) : intervalHide;
-		setFullProfile = (ljStorage["livejournal_addons.ljaddFullProfile"] == "true") ? true : false;
+		setFullProfile = (ljStorage["livejournal_addons.ljaddFullProfile"] == "true");
 		ljaddMainURL = ljStorage["livejournal_addons.ljaddMainURL"] ? ljStorage["livejournal_addons.ljaddMainURL"] : ljaddMainURL;
 
 		ljaddNoStyleMine = new RegExp(
@@ -82,18 +82,18 @@ function start()
 			")"
 		, "i");
 
-		ljaddMinImageWidthForBrowseOpt = (ljStorage["livejournal_addons.ljaddMinImageWidthForBrowseOpt"] == "false") ? false : true;;
+		ljaddMinImageWidthForBrowseOpt = (ljStorage["livejournal_addons.ljaddMinImageWidthForBrowseOpt"] != "false");
 		ljaddMinImageWidthForBrowse = (ljStorage["livejournal_addons.ljaddMinImageWidthForBrowse"]) ?
-			Number(ljStorage["livejournal_addons.ljaddMinImageWidthForBrowse"]) : ljaddMinImageWidthForBrowse;;
+			Number(ljStorage["livejournal_addons.ljaddMinImageWidthForBrowse"]) : ljaddMinImageWidthForBrowse;
 
 		ljaddUserTips = ljStorage["livejournal_addons.ljaddUserTips"] ? ljStorage["livejournal_addons.ljaddUserTips"] : ljaddUserTips;
-		ljaddUserTipsOpt = (ljStorage["livejournal_addons.ljaddUserTipsOpt"] == "true") ? true : false;
+		ljaddUserTipsOpt = (ljStorage["livejournal_addons.ljaddUserTipsOpt"] == "true");
 		ljaddProcessLinks(document.body);
 
 		insets = (ljStorage["livejournal_addons.ljaddInsets"]) ? ljStorage["livejournal_addons.ljaddInsets"] : insets;
 		ljaddRandomQuotes = (ljStorage["livejournal_addons.ljaddRandomQuotes"]) ?
 			decodeURI(ljStorage["livejournal_addons.ljaddRandomQuotes"]).split("\n.\n") : ljaddRandomQuotes;
-		addInsetBlock = (ljStorage["livejournal_addons.ljaddAddInsetBlock"] == "true") ? true : false;
+		addInsetBlock = (ljStorage["livejournal_addons.ljaddAddInsetBlock"] == "true");
 		addInsetBlockPlace = ljStorage["livejournal_addons.ljaddAddInsetBlockPlace"] ?
 				Number(ljStorage["livejournal_addons.ljaddAddInsetBlockPlace"]) : addInsetBlockPlace;
 		ljaddAddInsetBlock(document.body);
@@ -102,16 +102,16 @@ function start()
 		ljaddRandomizeUserpics = (ljStorage["livejournal_addons.ljaddRandomizeUserpics"]) ? ljStorage["livejournal_addons.ljaddRandomizeUserpics"] : ljaddRandomizeUserpics;
 		ljaddProcessImages(document.body);
 
-		var autoUnfold = (ljStorage["livejournal_addons.ljaddAutoUnfold"] == "true") ? true : false;
-		var allPages = (ljStorage["livejournal_addons.ljaddAutoUnfoldAllPages"] == "true") ? true : false;
+		var autoUnfold = (ljStorage["livejournal_addons.ljaddAutoUnfold"] == "true");
+		var allPages = (ljStorage["livejournal_addons.ljaddAutoUnfoldAllPages"] == "true");
 		if(autoUnfold)
 			ljaddUnfoldComments(false, document.body, allPages);
 
-		var comButtons = (ljStorage["livejournal_addons.ljaddAddCommentButtons"] == "false") ? false : true;
+		var comButtons = (ljStorage["livejournal_addons.ljaddAddCommentButtons"] != "false");
 		if(comButtons)
 			addCommentsButtons(document.body);
 
-		var ljInstabtComment = (ljStorage["livejournal_addons.ljInstantComment"] == "true") ? true : false;
+		var ljInstabtComment = (ljStorage["livejournal_addons.ljInstantComment"] == "true");
 		if(ljInstabtComment)
 			LJInstantCommentInit();
 
@@ -134,29 +134,6 @@ function start()
 	document.documentElement.addEventListener("DOMNodeInserted", ljaddCatchDOMNodeInserted, true);
 	//chrome.experimental.contextMenu({"title": "Test", "contexts":["ALL"], "onclick": function(){alert(1);}});
 }
-
-var ljaddNoStyleLight = new RegExp(
-	"http://www\\.livejournal\\.com/mobile/" +
-	"|(?:" +
-		"http://(?!www\\.|my\\.)" +
-			"(?:" +
-				"(?:syndicated|community|users)\\.livejournal\\.com/\\w+/" +
-				"|[\\w-]+\\.livejournal\\.com/" +
-			")" +
-		"|http://" +
-			"www\\.livejournal\\.com/(?:syndicated|community|users)/[\\w-]+/" +
-	")" +
-				"(?:$|\\?|#|calendar\\b|\\d\\d\\d\\d/(?:\\d\\d/\\d\\d/)?|friends\\b)"
-, "i");
-var ljaddToLight = new RegExp(
-	"(?:" +
-		"(?:syndicated|community|users)\\.livejournal\\.com/\\w+/" +
-		"|www\\.livejournal\\.com/(?:syndicated|community|users)/[\\w-]+/" +
-		"|[\\w-]+\\.livejournal\\.com/" +
-	")" +
-		"(?:\\d+\\.html\\b|tag/)"
-, "i");
-
 
 /*************************************************************************************************/
 function ljaddIsCommentOfDeletedJournal(comment) {

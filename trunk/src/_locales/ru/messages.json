@@ -475,6 +475,21 @@
 "ljaddActionOpenFP": {
  "message": "Открыть ленту друзей"
 },
+"ljaddNotificationHeadOpen": {
+ "message": "Последствия щелчка на всплывающем окне"
+},
+"ljaddNotificationFpOpen": {
+ "message": "записи друзей:"
+},
+"ljaddNotificationFpOpenAll": {
+ "message": "лента"
+},
+"ljaddNotificationFpOpenNewRead": {
+ "message": "новые (чтение)"
+},
+"ljaddNotificationFpOpenNewReply": {
+ "message": "новые (ответить)"
+},
 
 
 "ljaddInsets": {

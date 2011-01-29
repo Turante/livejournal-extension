@@ -129,7 +129,7 @@ function trigger_submit_on_ctrl_enter(e) {
 			method: "POST",
 			headers: {
 				'User-agent': 'Mozilla/4.0 (compatible) Greasemonkey Instant Comment',
-				'Content-type': 'application/x-www-form-urlencoded',
+				'Content-type': 'application/x-www-form-urlencoded'
 			},
 			data: 'itemid='+reply.getAttribute('itemid')+'&body='+msgEncoded+token_str}, function(response)
 		{

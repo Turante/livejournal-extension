@@ -62,6 +62,7 @@ var ljaddNotificationOptDefault = true;
 var ljaddUnfolderSizeDefault = 8;
 var ljaddBadgeOptDefault = true;
 var ljaddIconClickActionDefault = 0;
+var ljaddNotificationFpOpenDefault = 0;
 
 function initDefaults()
 {
@@ -134,6 +135,8 @@ function initDefaultsByType(type)
 			localStorage.setItem("ljaddBadgeOpt", ljaddBadgeOptDefault ? "true" : "false");
 		if(localStorage.getItem("ljaddIconClickAction") == null)
 			localStorage.setItem("ljaddIconClickAction", new String(ljaddIconClickActionDefault));
+        if(localStorage.getItem("ljaddNotificationFpOpen") == null)
+            localStorage.setItem("ljaddNotificationFpOpen", new String(ljaddNotificationFpOpenDefault));
 	}
 	else if(type == "insets")
 	{
@@ -210,6 +213,7 @@ function resetDefaultsByType(type)
 		localStorage.setItem("ljaddNotificationOpt", ljaddNotificationOptDefault ? "true" : "false");
 		localStorage.setItem("ljaddBadgeOpt", ljaddBadgeOptDefault ? "true" : "false");
 		localStorage.setItem("ljaddIconClickAction", new String(ljaddIconClickActionDefault));
+        localStorage.setItem("ljaddNotificationFpOpen", new String(ljaddNotificationFpOpenDefault));
 	}
 	else if(type == "insets")
 	{
