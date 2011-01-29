@@ -1,0 +1,374 @@
+<html>
+<head>
+<script src="strings.js"> </script>
+<script src="defaults.js"> </script>
+<script src="background.js"> </script>
+<script>
+var ljaddCheckerFP;
+var ljaddFPContainer = document.createElement("div");
+var menuFP = {numberOfEntries: 0, newEntriesTexts: [], curEntriesLinks: [], replyFP: ""};
+
+initStrings();
+initDefaults();
+
+chrome.extension.onRequest.addListener(
+  function(request, sender, sendResponse)
+  {
+	if(!sender.tab)
+		return;
+
+	if(request.type != "tabs" && request.url)
+	{
+		var req = new XMLHttpRequest();
+		req.open(request.method == "POST" ? "POST" : "GET", request.url, true);
+		req.onreadystatechange  = function() {
+			if (req.readyState != 4)
+				return;
+
+			sendResponse({html: req.responseText});
+		};
+		if(request.headers)
+			for(header in request.headers)
+				req.setRequestHeader(header, request.headers[header]);
+		req.send(request.data ? request.data : null);
+	}
+	else if(request.type == "storage")
+	{
+		sendResponse({storage: localStorage});
+	}
+	else if(request.type == "set_storage" && request.key)
+	{
+		localStorage.setItem(request.key, request.value);
+	}
+	else if(request.type == "tabs" && request.action == "create")
+	{
+		chrome.tabs.create({url: request.url});
+	}
+	else if(request.type == "call" && request.action == "ljaddMarkAllPostsAsRead")
+	{
+		ljaddMarkAllPostsAsRead(false);
+	}
+  });
+
+	if(localStorage.getItem("livejournal_addons.ljaddStyleMine") == "true")
+	{
+		localStorage.setItem("livejournal_addons.ljaddFormatAppendOpt", "true");
+		localStorage.setItem("livejournal_addons.ljaddFormatAppendStyle", "0");
+		localStorage.setItem("livejournal_addons.ljaddFormatAppendFilterList", "*");
+		localStorage.setItem("livejournal_addons.ljaddStyleMine", null);
+	}
+
+  function listener(tabId, changeInfo, tab, flag)
+  {
+	if(localStorage.getItem("livejournal_addons.ljaddFormatAppendOpt") != "true")
+		return;
+
+	if(typeof(changeInfo.url) == "undefined" && typeof(flag) == "undefined")
+	{
+		chrome.tabs.getAllInWindow(tab.windowId, function(tabs)
+		{
+			for(var i = 0; i < tabs.length; i++)
+				listener(tabs[i].tabId, {url: tabs[i].url}, tabs[i], true);
+		});
+	}
+	var loc = changeInfo.url;
+	if (loc.search(/http:\/\/.+?\.livejournal.com/i) == -1
+		|| loc.search(/http:\/\/pics\.livejournal.com/i) != -1
+		|| loc.search(/http:\/\/l-userpic\.livejournal.com/i) != -1) {
+		return;
+	}
+
+	var newLoc = "";
+
+	var appendStyle = Number(localStorage.getItem("livejournal_addons.ljaddFormatAppendStyle"));
+	if (appendStyle == 0) {
+		appendStyle = "style=mine";
+	}
+	else if (appendStyle == 1) {
+		appendStyle = "light";
+	}
+	else {
+		appendStyle = "lightOrMine";
+	}
+	var appendFilter = localStorage.getItem("livejournal_addons.ljaddFormatAppendFilterList").split(", ");
+	var allMatched = false, excluding = false;
+	var i = appendFilter.indexOf("*");
+	if (i > -1) {
+		allMatched = true;
+		appendFilter.splice(i, 1);
+	}
+	if (appendFilter.some(function(ent){return ent.search(/^!/) > -1})) {
+		excluding = true;
+	}
+	if (allMatched && !excluding) {
+		newLoc = ljaddChangeLocation(loc, appendStyle, false);
+	}
+	else {
+		var thisMatched = false, thisExcluded = false;
+		for (var j = 0, arrayLength = appendFilter.length; j < arrayLength; j++) {
+			var curSubstring = appendFilter[j];
+			if (curSubstring.search(/^!/) > -1) {
+				if (loc.indexOf(curSubstring.replace(/^!/, "")) > -1) {
+					thisExcluded = true;
+					thisMatched = false;
+					return;
+				}
+			}
+			else if (loc.indexOf(curSubstring) > -1) {
+				thisMatched = true;
+			}
+		}
+		if (thisMatched || allMatched && !thisExcluded) {
+			newLoc = ljaddChangeLocation(loc, appendStyle, false);
+		}
+	}
+
+	if(newLoc != loc && newLoc != "")
+	{
+		chrome.tabs.update(tab.id, {url: newLoc});
+	}
+  }
+
+chrome.tabs.onUpdated.addListener(listener);
+
+var insets = localStorage.getItem("livejournal_addons.ljaddInsets");
+if(!insets)
+    insets = "bold%0B%3Cspan%20style=%22font-weight:%20bold%22%3E%5E%5E%3C/span%3E%0Ccenter%0B%3Cdiv%20style=%22text-align:%20center%22%3E%5E%5E%3C/div%3E%0Ccitation%0B%3Cdiv%20style=%22margin:%2010px%2012.5%25;%20padding:%205px;%20border:%201px%20solid%20gray;%20background-color:%20lightgray;%20text-align:%20justify;%20font-style:%20italic;%22%3E%3Cdiv%20style=%22padding-left:%205px;%20border:%201px%20solid%20gray;%20background-color:%20darkgray;%20color:%20white;%20font-weight:%20bold%22%3E%C2%AB&nbsp;&nbsp;&nbsp;%C2%BB%3C/div%3E%3Cdiv%20style=%22padding:%2010px%2012.5%25%205px;%22%3E%5E%3C/div%3E%3Cdiv%20style=%22padding:%205px%2012.5%25%2010px;%20text-align:%20right;%22%3EAuctor.%3C/div%3E%3C/div%3E%0B%0B%0Ccode%0B%3Ccode%20style=%22font-size:%20medium%22%3E%5E%5E%3C/code%3E%0B%0B%0Cfloat%20left%0B%3Cdiv%20style=%22float:%20left;%20margin:%2010px;%22%3E%5E%5E%3C/div%3E%0Cfloat%20right%0B%3Cdiv%20style=%22float:%20right;%20margin:%2010px;%22%3E%5E%5E%3C/div%3E%0Cimage%0B%3Cimg%20src=%22%5E%22%3E%0Citalic%0B%3Cspan%20style=%22font-style:%20italic%22%3E%5E%5E%3C/span%3E%0Clink%0B%3Ca%20href=%22%5E%22%3E%5E%5E%3C/a%3E%0Clj%20cut%0B%3Clj-cut%20text=%22...%22%3E%5E%5E%3C/lj-cut%3E%0Clj%20media%0B%3Clj-embed%3E%5E%3C/lj-embed%3E%0Clj%20user%0B%3Clj%20user=%22%5E%22%3E%0Bhttp://l-stat.livejournal.com/img/userinfo.gif%0B%0Clj%20user%20extended%0B%3Cspan%20style='white-space:nowrap;'%3E%3Ca%20href='%5Eprofile'%3E%3Cimg%20src='http://l-stat.livejournal.com/img/userinfo.gif'%20alt='%5Binfo%5D'%20width='17'%20height='17'%20style='vertical-align:%20bottom;%20border:%200pt%20none;'%20/%3E%3C/a%3E%3Ca%20href='%5E'%3E%3Cb%3E%5E%5E%3C/b%3E%3C/a%3E%3C/span%3E%0Bhttp://l-stat.livejournal.com/img/userinfo.gif%0B%0Cright%0B%3Cdiv%20style=%22text-align:%20right%22%3E%5E%5E%3C/div%3E%0Cspoiler%0B%3Cdiv%20style=%22margin:%2010px%2012.5%25;%20padding:%205px;%20border:%201px%20solid%20gray;%20background-color:%20lightgray;%20text-align:%20justify;%20font-style:%20italic;%22%3E%3Cdiv%20style=%22padding-left:%205px;%20border:%201px%20solid%20gray;%20background-color:%20darkgray;%20color:%20white;%20font-weight:%20bold;%22%3ESpoiler!%20Select%20by%20mouse%20to%20read:%3C/div%3E%3Cdiv%20style=%22padding:%2010px%2012.5%25%205px;%20color:%20lightgray;%22%3E%5E%5E%3C/div%3E%3C/div%3E%0B%0B%0Cstrike%0B%3Cspan%20style=%22text-decoration:%20line-through%22%3E%5E%5E%3C/span%3E";
+
+var insetsContextMenuMap = {};
+
+var optList = decodeURI(insets).split("\x0c");
+var parent = chrome.contextMenus.create({title: chrome.i18n.getMessage("ljaddInsets"), contexts: ["editable"], documentUrlPatterns: ["http://*.livejournal.com/*"]});
+for(var i = 0; i < optList.length; i++)
+{
+    var params = optList[i].split("\x0b");
+    inset = params[0];
+    var id = chrome.contextMenus.create({title: inset, parentId: parent, contexts: ["editable"], documentUrlPatterns: ["http://*.livejournal.com/*"], onclick: function(OnClickData)
+        {
+            var index = insetsContextMenuMap[OnClickData.menuItemId];
+            chrome.tabs.getSelected(null, function(tab) {
+                  chrome.tabs.sendRequest(tab.id, {index: index}, function(response) {});
+                });
+        }});
+    insetsContextMenuMap[id] = i;
+}
+
+/*************************************************************************************************/
+function ljaddRestartCheckFriendsPage() {
+	window.clearInterval(ljaddCheckerFP);
+	ljaddCheckFriendsPage();
+
+	var checkInterval = localStorage["ljaddFriendsPageCheckInterval"] ? Number(localStorage["ljaddFriendsPageCheckInterval"]) : 1;
+
+	if (localStorage["checks.ljaddFriendsPageCheckOpt"] == "true") {
+		ljaddCheckerFP = window.setInterval("ljaddCheckFriendsPage()", checkInterval * 60 * 1000);
+	}
+}
+/*************************************************************************************************/
+function ljaddCheckFriendsPage() {
+	chrome.browserAction.setIcon({path: chrome.extension.getURL("images/pencil_16.png")});
+	menuFP = {numberOfEntries: 0, newEntriesTexts: [], curEntriesLinks: [], replyFP: ""};
+	var checkTime = Date().match(/\d+:\d+/);
+
+	var req = new XMLHttpRequest();
+	req.open("GET", "http://www.livejournal.com/mobile/friends.bml", true);
+//	req.channel.loadFlags |= ljaddCi.nsIRequest.LOAD_BYPASS_CACHE;
+	req.onload = function() {
+		chrome.browserAction.setIcon({path: chrome.extension.getURL("images/pencil_16.png")});
+		chrome.browserAction.setBadgeText({text: ""});
+		ljaddFPContainer.innerHTML = this.responseText;
+		var tipNewsOnly = localStorage["ljaddFriendsPageTipNewsOnly"] == "true";
+		var counter = "";
+		var fpElements = ljaddFPContainer.childNodes;
+		var firstNews = false;
+		var skipped = 0;
+		for (skipped = 0, arrayLength = fpElements.length; (skipped < arrayLength) && (fpElements[skipped].nodeName != "A"); skipped++) {
+			;
+		}
+		var newEntriesIndex = 0;
+		var curEntriesLinks = new Array(), newEntriesTexts = new Array();
+		for (var i = skipped, elem; elem = fpElements[i]; i++) {
+			if (elem.nodeName == "BR") {
+				newEntriesIndex++;
+				continue;
+			}
+			newEntriesTexts[newEntriesIndex] = (newEntriesTexts[newEntriesIndex]? newEntriesTexts[newEntriesIndex] : "") + elem.textContent;
+			if (elem.nodeName == "A") {
+				curEntriesLinks[newEntriesIndex] = elem.getAttribute("href").replace(/\?format=light\b/i, "");
+			}
+		}
+		var numberOfEntries = curEntriesLinks.length;
+		if (numberOfEntries == 0) {
+			chrome.browserAction.setIcon({path: chrome.extension.getURL("images/pencil_16_dis.png")});
+			if(localStorage["ljaddBadgeOpt"] == "true")
+				chrome.browserAction.setBadgeText({text: "x"})
+			chrome.browserAction.setTitle({title: (checkTime + "\n" + Strings.FpError)});
+			return;
+		}
+		var prevEntriesLinksArchive =
+			localStorage["ljaddFriendsPageLinksArchive"] &&
+				localStorage["ljaddFriendsPageLinksArchive"].split("\x0c")
+			||
+			[]
+		;
+		var prevEntriesLinks =
+			localStorage["ljaddFriendsPageLinks"] &&
+			localStorage["ljaddFriendsPageLinks"].split("\x0c")
+			||
+			[]
+		;
+		var toArchive = [];
+		for (var i = 0, arrayLength = prevEntriesLinks.length; i < arrayLength; i++) {
+			var ent = prevEntriesLinks[i];
+			if (curEntriesLinks.indexOf(ent.replace(/\x0b/g, "")) == -1) {
+				toArchive.push(ent);
+				for (var j = 0, arrayLength2 = prevEntriesLinksArchive.length; j < arrayLength2; j++) {
+					if (prevEntriesLinksArchive[j].replace(/\x0b/g, "") == ent.replace(/\x0b/g, "")) {
+						prevEntriesLinksArchive.splice(j, 1);
+						break;
+					}
+				}
+			}
+		}
+		var newNumber = 0;
+		var addNumber = 0;
+		for (var i = 0; i < numberOfEntries; i++) {
+			if (prevEntriesLinks.indexOf(curEntriesLinks[i]) > -1) {
+				;
+			}
+			else if (prevEntriesLinks.indexOf(curEntriesLinks[i] + "\x0b") > -1 || prevEntriesLinksArchive.indexOf(curEntriesLinks[i] + "\x0b") > -1) {
+				curEntriesLinks[i] += "\x0b";
+				newNumber++;
+			}
+			else if (prevEntriesLinksArchive.indexOf(curEntriesLinks[i]) == -1) {
+				curEntriesLinks[i] += "\x0b";
+				newNumber++;
+				addNumber++;
+				if (firstNews === false) {
+					firstNews = i;
+				}
+			}
+		}
+		prevEntriesLinksArchive = toArchive.concat(prevEntriesLinksArchive);
+		prevEntriesLinksArchive.splice(numberOfEntries);
+
+		var tooltip = "";
+		if (newNumber) {
+			if(localStorage["ljaddBadgeOpt"] == "true")
+				chrome.browserAction.setBadgeText({text: new String(newNumber).toString()})
+
+			if (curEntriesLinks[numberOfEntries - 1].indexOf("\x0b") > -1) {
+				counter = " (" + newNumber + "+)";
+				tooltip += checkTime + " " + Strings.newPosts + " " + newNumber + "+\n";
+			}
+			else {
+				counter = " (" + newNumber + ")";
+				tooltip += checkTime + " " + Strings.newPosts + " " + newNumber + "\n";
+			}
+			if (tipNewsOnly) {
+				for (var i = 0; i < numberOfEntries; i++) {
+					if (curEntriesLinks[i].search(/\x0b$/) > -1) {
+						tooltip += newEntriesTexts[i] + "\n";
+					}
+				}
+			}
+			else {
+				for (var i = 0; i < numberOfEntries; i++) {
+					if (curEntriesLinks[i].search(/\x0b$/) > -1) {
+						tooltip += "* " + newEntriesTexts[i] + "\n";
+					}
+					else {
+						tooltip += "  " + newEntriesTexts[i] + "\n";
+					}
+				}
+			}
+		}
+		else {
+			tooltip += checkTime + "\n";
+			if (tipNewsOnly) {
+				tooltip += newEntriesTexts[0] + "\n";
+			}
+			else {
+				for (var i = 0; i < numberOfEntries; i++) {
+					tooltip += "  " + newEntriesTexts[i] + "\n";
+				}
+			}
+		}
+
+		chrome.browserAction.setTitle({title: tooltip});
+
+		menuFP = {numberOfEntries: numberOfEntries, newEntriesTexts: newEntriesTexts, curEntriesLinks: curEntriesLinks, replyFP: Strings.replyFP};
+
+		if (addNumber) {
+			if ((localStorage["ljaddNotificationOpt"] != "false")){
+				try {
+					var notification = webkitNotifications.createNotification(
+							  'images/pencil.png',  // icon url - can be relative
+							  checkTime + " - " + Strings.FriendsPageChanged,  // notification title
+							  newEntriesTexts[firstNews] + counter  // notification body text
+							);
+					notification.show();
+                    notification.onclick = ljaddNotificationListenerPosts;
+                    setTimeout(function(){
+                        notification.cancel()}, 4000);
+
+
+				} catch(e) {}
+			}
+		}
+		localStorage["ljaddFriendsPageLinksArchive"] = prevEntriesLinksArchive.join("\x0c");
+		localStorage["ljaddFriendsPageLinks"] = curEntriesLinks.join("\x0c");
+		ljaddFPContainer.innerHTML = "";
+//		ljaddHideElements();
+	};
+	req.onerror = function() {
+		var menuitem = document.createElement("menuitem");
+		menuitem.setAttribute("label", ljaddStrings.noData);
+		menuitem.setAttribute("class", "ljaddFpEntry");
+		menuitem.setAttribute("disabled", "true");
+		ljaddFpMenu.appendChild(menuitem);
+		chrome.browserAction.setIcon({path: chrome.extension.getURL("images/pencil_16_dis.png")});
+		if(localStorage["ljaddBadgeOpt"] == "true")
+			chrome.browserAction.setBadgeText({text: "x"})
+		chrome.browserAction.setTitle({title: (checkTime + " - " + Strings.error)});
+	}
+
+	req.send(null);
+}
+
+function getMenuFP()
+{
+	return menuFP;
+}
+
+chrome.browserAction.onClicked.addListener(function(tab) {
+	chrome.tabs.getAllInWindow(tab.windowId, function(tabs){
+			var fpURL = localStorage["livejournal_addons.ljaddFrPgURL"];
+
+			for(var i = 0; i < tabs.length; i++)
+			{
+				if (tabs[i].url.indexOf(fpURL) > -1) {
+					if (fpURL.replace(/(?:\?|#).*$/, "").replace(/\bfriends\/$/i, "friends") ==
+							tabs[i].url.replace(/(?:\?|#).*$/, "").replace(/\bfriends\/$/i, "friends"))
+						{
+							chrome.tabs.update(tabs[i].id, {selected: true});
+							return;
+						}
+				}
+			}
+
+			chrome.tabs.create({url: fpURL, selected: true});
+		});
+});
+
+if(Number(localStorage["ljaddIconClickAction"]) == 0)
+	chrome.browserAction.setPopup({popup: "popup.html"});
+else
+	chrome.browserAction.setPopup({popup: ""});
+
+
+ljaddRestartCheckFriendsPage();
+
+</script>
+</head>
+</html>
