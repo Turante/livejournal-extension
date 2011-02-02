@@ -1064,6 +1064,8 @@ function ljaddLoadCommentsHere(event) {
 				var td = document.createElement("td");
 				td.colSpan = 2;
 				tr.appendChild(td);
+                if(commentLink.parentNode.parentNode.bgColor)
+                    tr.bgColor = commentLink.parentNode.parentNode.bgColor;
 				commentLink.parentNode.parentNode.parentNode.appendChild(tr);
 				throbber.parentNode.removeChild(throbber);
 				td.appendChild(newCommentContainer);
