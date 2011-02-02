@@ -428,6 +428,9 @@ function cancel()
 
 function init()
 {
+    flexibleSize();
+    document.body.onresize = flexibleSize;
+
 	var numbers = document.getElementsByClassName("numbers");
 	for(var i = 0; i < numbers.length; i++)
 	{
@@ -467,4 +470,40 @@ function init()
 	{
 		curTmsg.title = chrome.i18n.getMessage(curTmsg.getAttribute("tmsg"));
 	}
+}
+
+function flexibleSize()
+{
+    var optionsTable = document.getElementById("options_table");
+    var contents = document.getElementsByClassName("content");
+    var blankTds = document.getElementsByClassName("blank_td");
+
+    var i = 0;
+    if(window.innerHeight < 720)
+    {
+        optionsTable.style.height = Math.max(window.innerHeight - 38, 200) + "px";
+        for(i = 0; i < contents.length; i++)
+            contents[i].style.height = Math.max(window.innerHeight - 126, 100) + "px";
+    }
+    else
+    {
+        optionsTable.style.height = "682px";
+        for(i = 0; i < contents.length; i++)
+            contents[i].style.height = "594px";
+    }
+    if(window.innerWidth < 1250)
+    {
+        optionsTable.style.width = Math.max(window.innerWidth - 41, 500) + "px";
+        for(i = 0; i < contents.length; i++)
+            contents[i].style.width = Math.max(window.innerWidth - 41, 500) + "px";
+    }
+    else
+    {
+        optionsTable.style.width = "1209px";
+        for(i = 0; i < contents.length; i++)
+            contents[i].style.width = "1209px";
+    }
+
+    for(i = 0; i < blankTds.length; i++)
+        blankTds[i].style.width = optionsTable.offsetWidth - 280 + "px";
 }

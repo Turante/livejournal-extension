@@ -18,6 +18,7 @@ width:100%;
 height:100%;
 visibility:hidden;
 display:none;
+overflow:auto;
 }
 
 .msg{
@@ -29,7 +30,7 @@ display:inline;
 <body onload="init();selectTab('reading');">
 
 <table style="width:100%;height:100%;"><tr><td align="center">
-<table height="735" style="width:1250px;height:735px;border:1px solid black">
+<table style="border:1px solid black" id="options_table">
 <tr>
 <td colspan="5">
 <div style="width:100%;height:28px;background-color:#FFD69C;border:1px solid black;">
@@ -231,7 +232,7 @@ display:inline;
 </div>
 <!--Changes---------------------------------------------------------------------------------------->
 <div class="content" id="div_changes">
-<div style="height:635px;overflow:auto;">
+<div>
 <ul>
 <li>1.2.2</li>
 	<ul>
@@ -384,13 +385,22 @@ display:inline;
 		<li>Bug with "Icon click action" option was fixed.</li>
 	</ul>
 </ul>
-    <ul>
+<ul>
     <li>2.2.0</li>
         <ul>
             <li>"Result of click on popup" option was added.</li>
             <li>Popup is hided after 4 seconds.</li>
         </ul>
     </ul>
+</ul>
+<ul>
+    <li>2.2.2</li>
+        <ul>
+            <li>Options page is flexible now.</li>
+            <li>Bug with bgColor of comments block is fixed.</li>
+        </ul>
+    </ul>
+</ul>
 </div>
 </div>
 
@@ -402,7 +412,7 @@ display:inline;
 <td>
 <input class="omsg" msg="ljaddExport" type="button" value="Export" id="export"  style="width:100%;" disabled=""/>
 </td>
-<td width="100%" colspan="3">
+<td width="100%" colspan="3" style="width:1140px;" class="blank_td">
 &nbsp;
 </td>
 <td>
@@ -416,7 +426,7 @@ display:inline;
 <td>
 <input class="omsg" msg="ljaddReset" type="button" value="Reset" id="reset" onclick="reset()"/>
 </td>
-<td width="100%">
+<td width="100%" style="width:1000px;" class="blank_td">
 &nbsp;
 </td>
 <td>
