@@ -557,8 +557,8 @@
 "ljaddAddCommentUnfolders": {
  "message": "Comment unfolders"
 },
-"ljaddUnfolderSize": {
- "message": "Unfolders size:"
+"ljaddBigUnfolders": {
+ "message": "Use big unfolders"
 },
 "ljaddHideCommentFolders": {
  "message": "Hide comment folders till mouse on"

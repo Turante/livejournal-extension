@@ -223,9 +223,9 @@ function prepareTab(id)
 		comUnfolders.checked = localStorage.getItem("livejournal_addons.ljaddCommentUnfolders") == "true" ? true : false;
 		comUnfolders.onchange = function(){changed = true;};
 
-		var unfolderSize = document.getElementById("communication_unfoldersize");
-		unfolderSize.value = localStorage.getItem("livejournal_addons.ljaddUnfolderSize");
-		unfolderSize.onchange = function(){changed = true;};
+		var bigUnfolders = document.getElementById("communication_bigunfolders");
+		bigUnfolders.checked = localStorage.getItem("livejournal_addons.ljaddBigUnfolders") == "true" ? true : false;
+		bigUnfolders.onchange = function(){changed = true;};
 
 		var hideFolders = document.getElementById("communication_hidecomfolders");
 		hideFolders.checked = localStorage.getItem("livejournal_addons.ljaddHideCommentFolders") == "true" ? true : false;
@@ -394,9 +394,8 @@ function apply()
 	{
 		localStorage.setItem("livejournal_addons.ljaddRandomizeUserpics", document.getElementById("communication_userpics").checked ? "true" : "false");
 		localStorage.setItem("livejournal_addons.ljaddAddCommentButtons", document.getElementById("communication_commentbuttons").checked ? "true" : "false");
-		//localStorage.setItem("livejournal_addons.ljaddStyleMine", document.getElementById("communication_stylemine").checked ? "true" : "false");
 		localStorage.setItem("livejournal_addons.ljaddCommentUnfolders", document.getElementById("communication_comunfolders").checked ? "true" : "false");
-		localStorage.setItem("livejournal_addons.ljaddUnfolderSize", document.getElementById("communication_unfoldersize").value);
+		localStorage.setItem("livejournal_addons.ljaddBigUnfolders", document.getElementById("communication_bigunfolders").checked ? "true" : "false");
 		localStorage.setItem("livejournal_addons.ljaddHideCommentFolders", document.getElementById("communication_hidecomfolders").checked ? "true" : "false");
 		localStorage.setItem("livejournal_addons.ljaddAutoUnfold", document.getElementById("communication_autounfold").checked ? "true" : "false");
 		localStorage.setItem("livejournal_addons.ljaddAutoUnfoldAllPages", document.getElementById("communication_allpages").checked ? "true" : "false");
