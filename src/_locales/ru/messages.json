@@ -556,8 +556,8 @@
 "ljaddAddCommentUnfolders": {
  "message": "Разворачиватели комментариев"
 },
-"ljaddUnfolderSize": {
- "message": "Размер разворачивателей:"
+"ljaddBigUnfolders": {
+ "message": "Использовать большие разворачиватели"
 },
 "ljaddHideCommentFolders": {
  "message": "Скрывать сворачиватели до наведения мыши"

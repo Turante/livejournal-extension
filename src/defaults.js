@@ -59,7 +59,7 @@ var ljaddFriendsPageCheckIntervalDefault = 5;
 var ljaddFriendsPageUpdateDefault = true;
 //ljaddNotificationOpt
 var ljaddNotificationOptDefault = true;
-var ljaddUnfolderSizeDefault = 8;
+var ljaddBigUnfoldersDefault = false;
 var ljaddBadgeOptDefault = true;
 var ljaddIconClickActionDefault = 0;
 var ljaddNotificationFpOpenDefault = 0;
@@ -158,9 +158,7 @@ function initDefaultsByType(type)
 		if(localStorage.getItem("livejournal_addons.ljaddAddCommentButtons") == null)
 			localStorage.setItem("livejournal_addons.ljaddAddCommentButtons", ljaddAddCommentButtonsDefault ? "true" : "false");
 		if(localStorage.getItem("livejournal_addons.ljaddUnfolderSize") == null)
-			localStorage.setItem("livejournal_addons.ljaddUnfolderSize", new String(ljaddUnfolderSizeDefault));
-		/*if(localStorage.getItem("livejournal_addons.ljaddStyleMine") == null)
-			localStorage.setItem("livejournal_addons.ljaddStyleMine", ljaddStyleMineDefault ? "true" : "false");*/
+			localStorage.setItem("livejournal_addons.ljaddBigUnfolders", ljaddBigUnfoldersDefault ? "true" : "false");
 		if(localStorage.getItem("livejournal_addons.ljaddAutoUnfold") == null)
 			localStorage.setItem("livejournal_addons.ljaddAutoUnfold", ljaddAutoUnfoldDefault ? "true" : "false");
 		if(localStorage.getItem("livejournal_addons.ljaddAutoUnfoldAllPages") == null)
@@ -226,7 +224,7 @@ function resetDefaultsByType(type)
 	{
 		localStorage.setItem("livejournal_addons.ljaddRandomizeUserpics", ljaddRandomizeUserpicsDefault ? "true" : "false");
 		localStorage.setItem("livejournal_addons.ljaddAddCommentButtons", ljaddAddCommentButtonsDefault ? "true" : "false");
-		localStorage.setItem("livejournal_addons.ljaddUnfolderSize", new String(ljaddUnfolderSizeDefault));
+		localStorage.setItem("livejournal_addons.ljaddBigUnfolders", ljaddBigUnfoldersDefault ? "true" : "false");
 		localStorage.setItem("livejournal_addons.ljaddAddCommentButtons", ljaddAddCommentButtonsDefault ? "true" : "false");
 		localStorage.setItem("livejournal_addons.ljaddHideCommentFolders", ljaddHideCommentFoldersDefault ? "true" : "false");
 		localStorage.setItem("livejournal_addons.ljaddAutoUnfold", ljaddAutoUnfoldDefault ? "true" : "false");

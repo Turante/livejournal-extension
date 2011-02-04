@@ -1,5 +1,8 @@
 var ljStorage;
 
+var IMG_PLUS = "<img src='" + chrome.extension.getURL("images/bullet_toggle_plus.png") + "' style='vertical-align: bottom;' alt='+' class='ljaddUnfolderImg'/>";
+var IMG_MINUS = "<img src='" + chrome.extension.getURL("images/bullet_toggle_minus.png") + "' style='vertical-align: bottom;' alt='-' class='ljaddUnfolderImg'/>";
+
 var insets = "bold%0B%3Cspan%20style=%22font-weight:%20bold%22%3E%5E%5E%3C/span%3E%0Ccenter%0B%3Cdiv%20style=%22text-align:%20center%22%3E%5E%5E%3C/div%3E%0Ccitation%0B%3Cdiv%20style=%22margin:%2010px%2012.5%25;%20padding:%205px;%20border:%201px%20solid%20gray;%20background-color:%20lightgray;%20text-align:%20justify;%20font-style:%20italic;%22%3E%3Cdiv%20style=%22padding-left:%205px;%20border:%201px%20solid%20gray;%20background-color:%20darkgray;%20color:%20white;%20font-weight:%20bold%22%3E%C2%AB&nbsp;&nbsp;&nbsp;%C2%BB%3C/div%3E%3Cdiv%20style=%22padding:%2010px%2012.5%25%205px;%22%3E%5E%3C/div%3E%3Cdiv%20style=%22padding:%205px%2012.5%25%2010px;%20text-align:%20right;%22%3EAuctor.%3C/div%3E%3C/div%3E%0B%0B%0Ccode%0B%3Ccode%20style=%22font-size:%20medium%22%3E%5E%5E%3C/code%3E%0B%0B%0Cfloat%20left%0B%3Cdiv%20style=%22float:%20left;%20margin:%2010px;%22%3E%5E%5E%3C/div%3E%0Cfloat%20right%0B%3Cdiv%20style=%22float:%20right;%20margin:%2010px;%22%3E%5E%5E%3C/div%3E%0Cimage%0B%3Cimg%20src=%22%5E%22%3E%0Citalic%0B%3Cspan%20style=%22font-style:%20italic%22%3E%5E%5E%3C/span%3E%0Clink%0B%3Ca%20href=%22%5E%22%3E%5E%5E%3C/a%3E%0Clj%20cut%0B%3Clj-cut%20text=%22...%22%3E%5E%5E%3C/lj-cut%3E%0Clj%20media%0B%3Clj-embed%3E%5E%3C/lj-embed%3E%0Clj%20user%0B%3Clj%20user=%22%5E%22%3E%0Bhttp://l-stat.livejournal.com/img/userinfo.gif%0B%0Clj%20user%20extended%0B%3Cspan%20style='white-space:nowrap;'%3E%3Ca%20href='%5Eprofile'%3E%3Cimg%20src='http://l-stat.livejournal.com/img/userinfo.gif'%20alt='%5Binfo%5D'%20width='17'%20height='17'%20style='vertical-align:%20bottom;%20border:%200pt%20none;'%20/%3E%3C/a%3E%3Ca%20href='%5E'%3E%3Cb%3E%5E%5E%3C/b%3E%3C/a%3E%3C/span%3E%0Bhttp://l-stat.livejournal.com/img/userinfo.gif%0B%0Cright%0B%3Cdiv%20style=%22text-align:%20right%22%3E%5E%5E%3C/div%3E%0Cspoiler%0B%3Cdiv%20style=%22margin:%2010px%2012.5%25;%20padding:%205px;%20border:%201px%20solid%20gray;%20background-color:%20lightgray;%20text-align:%20justify;%20font-style:%20italic;%22%3E%3Cdiv%20style=%22padding-left:%205px;%20border:%201px%20solid%20gray;%20background-color:%20darkgray;%20color:%20white;%20font-weight:%20bold;%22%3ESpoiler!%20Select%20by%20mouse%20to%20read:%3C/div%3E%3Cdiv%20style=%22padding:%2010px%2012.5%25%205px;%20color:%20lightgray;%22%3E%5E%5E%3C/div%3E%3C/div%3E%0B%0B%0Cstrike%0B%3Cspan%20style=%22text-decoration:%20line-through%22%3E%5E%5E%3C/span%3E";
 var addInsetBlock = false;
 var addInsetBlockPlace = 0;
@@ -59,6 +62,12 @@ function start()
 
 		comUnfolders = (ljStorage["livejournal_addons.ljaddCommentUnfolders"] != "false");
 		ljaddHideCommentFolders = (ljStorage["livejournal_addons.ljaddHideCommentFolders"] == "true");
+
+        if(ljStorage["livejournal_addons.ljaddBigUnfolders"] == "true")
+        {
+            IMG_PLUS = "<img src='" + chrome.extension.getURL("images/bullet_toggle_plus_big.png") + "' style='vertical-align: bottom;' alt='+' class='ljaddUnfolderImg'/>";
+            IMG_MINUS = "<img src='" + chrome.extension.getURL("images/bullet_toggle_minus_big.png") + "' style='vertical-align: bottom;' alt='-' class='ljaddUnfolderImg'/>";
+        }
 		if(comUnfolders)
 			ljaddAddCommentUnfolders(document.body);
 
@@ -161,12 +170,12 @@ function ljaddAddCommentUnfolders(block) {
 			unfolder = doc.createElement("span");
 			var info = doc.createElement("span");
 			unfolder.className = info.className = (block.tagName == "BODY"? "ljaddCommentUnfolderPage" : "ljaddCommentUnfolderBlock");
-			unfolder.setAttribute("style", "cursor:pointer;font-family:monospace;background-color:silver;color:black;font-weight:bold;vertical-align:text-bottom;margin-right:2px;padding: 0px 2px");
+			unfolder.setAttribute("style", "cursor:pointer;font-family:monospace;color:black;font-weight:bold;vertical-align:text-bottom;padding: 0px");
 			unfolder.setAttribute("title", Strings.commentUnfolderTip);
-			unfolder.style.fontSize = ljStorage["livejournal_addons.ljaddUnfolderSize"] + "pt";
 			info.setAttribute("style", "color:silver;font-weight:bold;margin-left:3px;");
 			if (comment.className == "talk-comment" || comment.getElementsByTagName("a").length && !ljaddIsCommentOfDeletedJournal(comment)) {
-				unfolder.textContent = (comment.className == "talk-comment"? "-" : "+");
+				unfolder.innerHTML = (comment.className == "talk-comment"? IMG_MINUS : IMG_PLUS);
+                unfolder.value = (comment.className == "talk-comment"? "-" : "+");
 				info.setAttribute("title", "");
 				var user = doc.evaluate(
 					".//span[contains(@class, 'ljuser')]",
@@ -180,14 +189,15 @@ function ljaddAddCommentUnfolders(block) {
 				}
 			}
 			else {
-				unfolder.textContent = "-";
+				unfolder.innerHTML = IMG_MINUS;
+                unfolder.value = "-";
 				info.setAttribute("title", comment.textContent);
 				info.textContent = comment.textContent;
 			}
 			info.style.display = "none";
 			unfolderContainer.appendChild(unfolder);
 			unfolderContainer.appendChild(info);
-			if (ljaddHideCommentFolders && unfolder.textContent == "-") {
+			if (ljaddHideCommentFolders && unfolder.value == "-") {
 				unfolder.style.visibility = "hidden";
 				unfolderContainer.addEventListener("mouseover", ljaddUnfolderPointer, false);
 				unfolderContainer.addEventListener("mouseout", ljaddUnfolderNoPointer, false);
@@ -199,14 +209,14 @@ function ljaddAddCommentUnfolders(block) {
 /*************************************************************************************************/
 function ljaddUnfolderPointer() {
 	var unfolder = this.getElementsByTagName("span")[0];
-	if (ljaddHideCommentFolders && unfolder.textContent == "-") {
+	if (ljaddHideCommentFolders && unfolder.value == "-") {
 		unfolder.style.visibility = "visible";
 	}
 }
 /*************************************************************************************************/
 function ljaddUnfolderNoPointer() {
 	var unfolder = this.getElementsByTagName("span")[0];
-	if (ljaddHideCommentFolders && unfolder.textContent == "-") {
+	if (ljaddHideCommentFolders && unfolder.value == "-") {
 		unfolder.style.visibility = "hidden";
 	}
 }
@@ -261,7 +271,7 @@ function ljaddUnfolderSelectAction(event) {
 	var unfolderContainer = unfolder.parentNode;
 	var comment = unfolderContainer.parentNode.parentNode.parentNode;
 	var doc = comment.ownerDocument;
-	var show = (unfolder.textContent == "+");
+	var show = (unfolder.value == "+");
 	if (event.ctrlKey || event.metaKey) {
 		var parentComment = ljaddGetParentComment(comment);
 		parentComment.style.outline = "1px solid rgb(255, 0, 0)";
@@ -301,7 +311,8 @@ function ljaddUnfoldComment(thread, show) {
 			unfolderContainer.nextSibling.style.display = "table-cell";
 			info.style.display = "none";
 			unfolder.setAttribute("title", Strings.commentUnfolderTip);
-			unfolder.textContent = "-";
+			unfolder.innerHTML = IMG_MINUS;
+            unfolder.value = "-";
 			if (ljaddHideCommentFolders) {
 				unfolder.style.visibility = "hidden";
 			}
@@ -340,7 +351,8 @@ function ljaddUnfoldComment(thread, show) {
 			unfolderContainer.nextSibling.style.display = "none";
 			info.style.display = "inline";
 			unfolder.setAttribute("title", title);
-			unfolder.textContent = "+";
+			unfolder.innerHTML = IMG_PLUS;
+            unfolder.value = "+";
 			unfolder.style.visibility = "visible";
 		}
 	}
@@ -658,6 +670,8 @@ function ljaddUnfoldReplaceComments(source, targetInitComment, thisOnly) {
 }
 /*************************************************************************************************/
 function ljaddProcessChangedBlock(block) {
+    //Don't know why, but sometimes Chrome doesn't show new block without this line (or only after mouse click):
+    var h = document.body.offsetHeight;
 
 	if(comUnfolders)
 		ljaddAddCommentUnfolders(block);
@@ -714,10 +728,10 @@ function ljaddAddCutUnfolders(block) {
 	);
 	for (var i=0, cutLink; cutLink = cutLinks.snapshotItem(i); i++) {
 		var unfolder = doc.createElement("span");
-		unfolder.setAttribute("style", "background-color:silver; color:black; font-weight:bold; cursor:pointer; margin-right:5px;");
+		unfolder.setAttribute("style", "color:black; font-weight:bold; cursor:pointer;");
 		unfolder.className = "ljaddCutUnfolder";
-		unfolder.style.fontSize = ljStorage["livejournal_addons.ljaddUnfolderSize"] + "pt";
-		unfolder.innerHTML = "+";
+		unfolder.innerHTML = IMG_PLUS;
+        unfolder.value = "+";
 		unfolder.addEventListener("click", ljaddUnfoldCut, false);
 		cutLink.parentNode.insertBefore(unfolder, cutLink);
 	}
@@ -761,10 +775,10 @@ function ljaddUnfoldCut() {
 			body.removeChild(container);
 			unfolder.parentNode.removeChild(unfolder);
 			var newUnfolder = doc.createElement("span");
-			newUnfolder.setAttribute("style", "background-color:silver; color:black; font-weight:bold; cursor:pointer; margin-right:5px;");
+			newUnfolder.setAttribute("style", "color:black; font-weight:bold; cursor:pointer;");
 			newUnfolder.className = "ljaddCutUnfolder";
-			newUnfolder.style.fontSize = ljStorage["livejournal_addons.ljaddUnfolderSize"] + "pt";
-			newUnfolder.innerHTML = "+";
+			newUnfolder.innerHTML = IMG_PLUS;
+            newUnfolder.value = "+";
 			newUnfolder.addEventListener("click", ljaddUnfoldCut, false);
 			cutLink.parentNode.insertBefore(newUnfolder, cutLink);
 			return;
@@ -784,10 +798,10 @@ function ljaddUnfoldCut() {
 			cutLink.parentNode.removeChild(cutLink.parentNode.lastChild);
 			newCutContainer.parentNode.removeChild(newCutContainer);
 			var unfolder = doc.createElement("span");
-			unfolder.setAttribute("style", "background-color:silver; color:black; font-weight:bold; cursor:pointer; margin-right:5px;");
+			unfolder.setAttribute("style", "color:black; font-weight:bold; cursor:pointer;");
 			unfolder.className = "ljaddCutUnfolder";
-			unfolder.style.fontSize = ljStorage["livejournal_addons.ljaddUnfolderSize"] + "pt";
-			unfolder.innerHTML = "+";
+			unfolder.innerHTML = IMG_PLUS;
+            unfolder.value = "+";
 			unfolder.addEventListener("click", ljaddUnfoldCut, false);
 			cutLink.parentNode.insertBefore(unfolder, cutLink);
 			cutLink.focus();
@@ -804,10 +818,10 @@ function ljaddUnfoldCut() {
 			cutLink.parentNode.removeChild(cutLink.parentNode.lastChild);
 			newCutContainer.parentNode.removeChild(newCutContainer);
 			var unfolder = doc.createElement("span");
-			unfolder.setAttribute("style", "background-color:silver; color:black; font-weight:bold; cursor:pointer; margin-right:5px;");
+			unfolder.setAttribute("style", "color:black; font-weight:bold; cursor:pointer;");
 			unfolder.className = "ljaddCutUnfolder";
-			unfolder.style.fontSize = ljStorage["livejournal_addons.ljaddUnfolderSize"] + "pt";
-			unfolder.innerHTML = "+";
+			unfolder.innerHTML = IMG_PLUS;
+            unfolder.value = "+";
 			unfolder.addEventListener("click", ljaddUnfoldCut, false);
 			cutLink.parentNode.insertBefore(unfolder, cutLink);
 			cutLink.focus();
@@ -895,10 +909,10 @@ function ljaddProcessLinks(block) {
 			continue;
 
 		var unfolder = doc.createElement("span");
-		unfolder.setAttribute("style", "background-color:silver; color:black; font-weight:bold; cursor:pointer; margin-right:5px;");
+		unfolder.setAttribute("style", "color:black; font-weight:bold; cursor:pointer;");
 		unfolder.className = "ljaddCutUnfolder";
-		unfolder.style.fontSize = ljStorage["livejournal_addons.ljaddUnfolderSize"] + "pt";
-		unfolder.innerHTML = "+";
+		unfolder.innerHTML = IMG_PLUS;
+        unfolder.value = "+";
 		unfolder.addEventListener("click", ljaddLoadCommentsHere, false);
 		curLink.parentNode.insertBefore(unfolder, curLink);
 	}
@@ -1920,7 +1934,8 @@ function ljaddAddTriggers(doc, links, images) {
 				(curImage.width > 1 && curImage.width < minWidth) ||
 				curImage.parentNode.id == "ljaddTriggers" ||
 				curImage.parentNode.parentNode.id == "ljaddInsetBlock" ||
-				curImage.parentNode.id == "ljaddBrowseImagesDiv"
+				curImage.parentNode.id == "ljaddBrowseImagesDiv" ||
+                curImage.className == "ljaddUnfolderImg"
 			) {
 				continue;
 			}
@@ -3261,7 +3276,8 @@ function ljaddBrowseImages(event, fromThis) {
 				(img.clientWidth > 1 && img.clientWidth < minWidth) ||
 				img.parentNode.id == "ljaddTriggers" ||
 				img.parentNode.parentNode.id == "ljaddInsetBlock" ||
-				img.parentNode.id == "ljaddBrowseImagesDiv"
+				img.parentNode.id == "ljaddBrowseImagesDiv" ||
+                img.className == "ljaddUnfolderImg"
 			) {
 				continue;
 			}
@@ -3407,7 +3423,9 @@ function ljaddBrowseImagesStep(event) {
 		toImg.parentNode.parentNode.id == "ljaddInsetBlock" ||
 		toImg.clientHeight <= 1 ||
 		toImg.clientWidth <= 1 ||
-		curImg.offsetParent == toImg.offsetParent && curImg.offsetTop == toImg.offsetTop
+		curImg.offsetParent == toImg.offsetParent && curImg.offsetTop == toImg.offsetTop ||
+        curImg.className == "ljaddUnfolderImg"
+
 	) {
 		ljaddBrowseImagesStep(event);
 		return;
