@@ -205,6 +205,8 @@ function ljaddAddCommentUnfolders(block) {
 			unfolder.addEventListener("mousedown", ljaddUnfolderSelectAction, true);
 		}
 	}
+
+    refreshDocument();
 }
 /*************************************************************************************************/
 function ljaddUnfolderPointer() {
@@ -670,8 +672,7 @@ function ljaddUnfoldReplaceComments(source, targetInitComment, thisOnly) {
 }
 /*************************************************************************************************/
 function ljaddProcessChangedBlock(block) {
-    //Don't know why, but sometimes Chrome doesn't show new block without this line (or only after mouse click):
-    var h = document.body.offsetHeight;
+    refreshDocument();
 
 	if(comUnfolders)
 		ljaddAddCommentUnfolders(block);
@@ -3662,6 +3663,12 @@ function ljaddCatchDOMNodeInserted(event) {
 	/*if (ljaddMarks.length) {
 		ljaddMark(parentNode);
 	}*/
+}
+
+function refreshDocument()
+{
+    //Don't know why, but sometimes Chrome doesn't show new block without this line (or only after mouse click):
+    var h = document.body.offsetHeight;
 }
 
 /*************************************************************************************************/

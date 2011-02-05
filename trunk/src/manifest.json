@@ -1,6 +1,6 @@
 {
   "name": "LiveJournal Extension",
-  "version": "2.3.0",
+  "version": "2.3.1",
   "default_locale": "en",
   "icons": {"16": "images/pencil_16.png",
   			"32" : "images/pencil_32.png",
