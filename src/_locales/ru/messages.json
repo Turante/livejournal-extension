@@ -490,6 +490,12 @@
 "ljaddNotificationFpOpenNewReply": {
  "message": "новые (ответить)"
 },
+"ljaddReverseOrderOpt": {
+ "message": "Использовать обратный порядок записей в меню"
+},
+"ljaddNotificationTime": {
+ "message": "Время показа всплывающего окна (сек.)"
+},
 
 
 "ljaddInsets": {

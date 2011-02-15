@@ -135,6 +135,12 @@ display:inline;
 </fieldset>
 <fieldset>
 <legend><input type="checkbox" id="checking_showpopup"/> <div class="msg" id="ljaddNotificationOpt"></div></legend>
+<table border="0" cellpadding="0" cellspacing="0" style="width:100%">
+<tr>
+<td align="left"><div class="msg" id="ljaddNotificationTime"></div></td>
+<td align="right"><input type="text" id="checking_notificationtime" class="numbers" style="width:50px"/></td>
+</tr>
+</table>
 <div class="msg" style="width: 100%;text-align: center;display: block;" id="ljaddNotificationHeadOpen"></div>
 <div class="msg" style="width: 100%;text-align: center;display: block;" id="ljaddNotificationFpOpen"></div>
 <input type="radio" name="checking_postsclickaction"/> <div class="msg" id="ljaddNotificationFpOpenAll"></div>
@@ -145,6 +151,8 @@ display:inline;
 </fieldset>
 <br/>
 <input type="checkbox" id="checking_showbadge"/> <div class="msg" id="ljaddBadgeOpt"></div>
+<br/>
+<input type="checkbox" id="checking_reverseorder"/> <div class="msg" id="ljaddReverseOrderOpt"></div>
 <fieldset>
 <legend><div class="msg" id="ljaddIconClickAction"></div></legend>
 <input type="radio" name="checking_iconaction"/> <div class="msg" id="ljaddActionShowPopup"></div>
@@ -403,6 +411,15 @@ display:inline;
             <li>Unfolders ("+"/"-") are icons now.</li>
             <li>"Unfolder size" option was removed.</li>
             <li>"Use big unfolders" option was added.</li>
+        </ul>
+    </ul>
+</ul>
+<ul>
+    <li>2.4.0</li>
+        <ul>
+            <li>Bug with float insets block was fixed.</li>
+            <li>"Time while popup is shown" option was added.</li>
+            <li>"Use reverse order of posts in menu" option was added.</li>
         </ul>
     </ul>
 </ul>
