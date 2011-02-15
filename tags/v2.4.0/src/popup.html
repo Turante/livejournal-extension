@@ -1,0 +1,76 @@
+<html>
+<head>
+
+<style type="text/css">
+a:link {
+	color: black;
+	padding: 2px;
+	font-family: Arial;
+	text-decoration: none;
+	width: 100%;
+	font-size: 0.7em;
+	display: block;
+	border-style: solid;
+	border-width: 1px;
+	border-color: white;
+	background-color:#F1F1F1;
+	overflow: hidden;
+}
+
+a:hover {
+	background-color: #E2EBED;
+}
+</style>
+
+<script src="background.js"> </script>
+<script>
+
+function getDataFromBackgroundPage()
+{
+	var backgroundPage = chrome.extension.getBackgroundPage();
+	var menuFP = backgroundPage.getMenuFP();
+
+    if(menuFP.reverseOrder)
+        for (var i = (menuFP.numberOfEntries - 1); i >=0 ; i--)
+        {
+            createMenuItem(menuFP.newEntriesTexts[i], menuFP.curEntriesLinks[i], menuFP.replyFP)
+        }
+    else
+        for (var i = 0; i < menuFP.numberOfEntries; i++)
+        {
+            createMenuItem(menuFP.newEntriesTexts[i], menuFP.curEntriesLinks[i], menuFP.replyFP)
+        }
+}
+
+function createMenuItem(newEntriesTexts, curEntriesLinks, replyFP)
+{
+    var menuitem = document.createElement("a");
+    menuitem.setAttribute("title", replyFP);
+    menuitem.style.whiteSpace = "nowrap";
+    menuitem.href = "#";
+
+    var text = newEntriesTexts;
+    if(text.indexOf(":") > -1)
+        text = "<b>" + text.substring(0, text.indexOf(":") + 1) + "</b>" + text.substring(text.indexOf(":") + 1, text.length);
+
+    if (curEntriesLinks.search(/\x0b$/) > -1) {
+        menuitem.setAttribute("onclick",
+            "ljaddOpenEntryByClick('" +
+            curEntriesLinks.replace(/\x0b$/, "") +
+            "', event, 1); ljaddMarkThisPostAsRead('" +
+            curEntriesLinks +
+            "')");
+        menuitem.innerHTML = "* " + text;
+    }
+    else {
+        menuitem.setAttribute("onclick", "ljaddOpenEntryByClick('" + curEntriesLinks + "', event, 1)");
+        menuitem.innerHTML = "&nbsp;&nbsp;" + text;
+    }
+    document.body.appendChild(menuitem);
+}
+
+
+</script>
+</head>
+<body onload="getDataFromBackgroundPage()"></body>
+</html>

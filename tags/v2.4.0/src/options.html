@@ -1,0 +1,465 @@
+<html>
+<head>
+<script src="defaults.js"> </script>
+<script src="options.js"> </script>
+<style>
+.tab{
+border:1px outset;
+margin-left:11px;
+cursor:hand;
+}
+
+.tmsg{
+}
+
+.content{
+border: 1px solid black;
+width:100%;
+height:100%;
+visibility:hidden;
+display:none;
+overflow:auto;
+}
+
+.msg{
+display:inline;
+}
+</style>
+</head>
+
+<body onload="init();selectTab('reading');">
+
+<table style="width:100%;height:100%;"><tr><td align="center">
+<table style="border:1px solid black" id="options_table">
+<tr>
+<td colspan="5">
+<div style="width:100%;height:28px;background-color:#FFD69C;border:1px solid black;">
+<table style="width:100%;height:100%" cellpadding="0" cellspacing="0">
+<!--Tabs------------------------------------------------------------------------------------------->
+<tr>
+<td><img src="images/ljmy.png" class="tab" tmsg="ljaddReading" name="tab" id="reading" title="" onclick="selectTab('reading');"></td>
+<td><img src="images/wcheck.png" class="tab" tmsg="ljaddCheck" name="tab" id="checking" title="" onclick="selectTab('checking');"></td>
+<td><img src="images/ins.gif" class="tab" tmsg="ljaddInsets" name="tab" id="insets" title="" onclick="selectTab('insets');"></td>
+<td><img src="images/mnew.gif" class="tab" tmsg="ljaddCommunication" name="tab" id="communication" title="" onclick="selectTab('communication');"></td>
+<td><img src="images/hp.png" class="tab" tmsg="ljaddChanges" name="tab" id="changes" title="" onclick="selectTab('changes');"></td>
+<td style="width:100%">&nbsp;</td>
+</tr>
+</table>
+</div>
+</td>
+</tr>
+<tr height="100%">
+<td colspan="5">
+<div style="width:100%;height:100%;">
+<!--Reading----------------------------------------------------------------------------------------->
+<div class="content" id="div_reading">
+<div style="margin:11px;">
+<div class="msg" id="ljaddMainURL"></div>
+<br/>
+<input type="text" id="reading_ljurl" style="width:100%"/>
+<br/>
+<div class="msg" id="ljaddFrPgURL"></div>
+<br/>
+<input type="text" id="reading_fpurl" style="width:100%"/>
+<br/>
+<input type="checkbox" id="reading_fullprofile"/> <div class="msg" id="ljaddFullProfile"></div>
+<br/>
+<input type="checkbox" id="reading_cutunfolders"/> <div class="msg" id="ljaddAddCutUnfolders"></div>
+<br/>
+<input type="checkbox" id="reading_linkicons"/> <div class="msg" id="ljaddAddTriggersOpt"></div>
+<br/>
+<input type="checkbox" id="reading_imgicons"/> <div class="msg" id="ljaddAddTriggersImagesOpt"></div>
+<br/>
+<table border="0" cellpadding="0" cellspacing="0" style="width:100%">
+<tr>
+<td align="left"><div class="msg" id="ljaddAddTriggersShow"></div></td>
+<td align="right"><input type="text" id="reading_show" class="numbers" style="width:50px"/></td>
+</tr>
+<tr>
+<td align="left"><div class="msg" id="ljaddAddTriggersHide"></div></td>
+<td align="right"><input type="text" id="reading_hide" class="numbers" style="width:50px"/></td>
+</tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" style="width:100%">
+<tr>
+<td align="left"><input type="checkbox" id="reading_imgmaxwidth"/> <div class="msg" id="ljaddFriendsPageMaxWidthOpt"></div></td>
+<td align="right"><input type="text" id="reading_imgmaxwidthpx" class="numbers" style="width:50px"/></td>
+</tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" style="width:100%">
+<tr>
+<td align="left"><input type="checkbox" id="reading_imgbrowsemin"/> <div class="msg" id="ljaddMinImageWidthForBrowseOpt"></div></td>
+<td align="right"><input type="text" id="reading_imgbrowseminpx" class="numbers" style="width:50px"/></td>
+</tr>
+</table>
+
+<fieldset>
+<legend><input type="checkbox" id="reading_open"/> <div class="msg" id="ljaddFormatAppendOpt"></div></legend>
+<input type="radio" name="reading_opentype"/> <div class="msg" id="ljaddFormatMine"></div>
+<br/>
+<input type="radio" name="reading_opentype"/> <div class="msg" id="ljaddFormatLynx"></div>
+<br/>
+<input type="radio" name="reading_opentype"/> <div class="msg" id="ljaddFormatLynxOrMine"></div>
+<br/>
+<div style="display:inline;background-color:#dddddd;cursor:default" title="" tmsg="ljaddFormatFilterTip">?</div>&nbsp;&nbsp;&nbsp;&nbsp;<div class="msg" id="ljaddFormatFilter"></div>
+<br/>
+<input type="text" id="reading_urls" style="width:100%;"/>
+</fieldset>
+
+<div class="msg" id="ljaddUserTips"></div>
+<textarea id="reading_tips" style="width:100%;height:60px;">
+</textarea>
+<input type="checkbox" id="reading_tipsopt"/> <div class="msg" id="ljaddUserTipsOpt"></div>
+<br/>
+<br/>
+
+<input type="checkbox" id="reading_ljinstantcomment"/> <div class="msg" id="ljInstantComment"></div>
+
+</div>
+</div>
+<!--Checking--------------------------------------------------------------------------------------->
+<div class="content" id="div_checking">
+<div style="margin:11px;">
+<fieldset>
+<legend><div class="msg" id="ljaddCheckHead"></div></legend>
+<table border="0" cellpadding="0" cellspacing="0" style="width:100%">
+<tr>
+<td align="left"><input type="checkbox" id="checking_preiodfpopt"/> <div class="msg" id="ljaddFriendsPageCheckOpt"></div></td>
+<td align="right"><input type="text" id="checking_periodfp" class="numbers" style="width:50px"/></td>
+</tr>
+</table>
+</fieldset>
+<fieldset>
+<legend><div class="msg" id="ljaddRefresh"></div></legend>
+<input type="checkbox" id="checking_afterfp"/> <div class="msg" id="ljaddFriendsPageUpdate"></div>
+</fieldset>
+<fieldset>
+<legend><input type="checkbox" id="checking_showpopup"/> <div class="msg" id="ljaddNotificationOpt"></div></legend>
+<table border="0" cellpadding="0" cellspacing="0" style="width:100%">
+<tr>
+<td align="left"><div class="msg" id="ljaddNotificationTime"></div></td>
+<td align="right"><input type="text" id="checking_notificationtime" class="numbers" style="width:50px"/></td>
+</tr>
+</table>
+<div class="msg" style="width: 100%;text-align: center;display: block;" id="ljaddNotificationHeadOpen"></div>
+<div class="msg" style="width: 100%;text-align: center;display: block;" id="ljaddNotificationFpOpen"></div>
+<input type="radio" name="checking_postsclickaction"/> <div class="msg" id="ljaddNotificationFpOpenAll"></div>
+<br/>
+<input type="radio" name="checking_postsclickaction"/> <div class="msg" id="ljaddNotificationFpOpenNewRead"></div>
+<br/>
+<input type="radio" name="checking_postsclickaction"/> <div class="msg" id="ljaddNotificationFpOpenNewReply"></div>
+</fieldset>
+<br/>
+<input type="checkbox" id="checking_showbadge"/> <div class="msg" id="ljaddBadgeOpt"></div>
+<br/>
+<input type="checkbox" id="checking_reverseorder"/> <div class="msg" id="ljaddReverseOrderOpt"></div>
+<fieldset>
+<legend><div class="msg" id="ljaddIconClickAction"></div></legend>
+<input type="radio" name="checking_iconaction"/> <div class="msg" id="ljaddActionShowPopup"></div>
+<br/>
+<input type="radio" name="checking_iconaction"/> <div class="msg" id="ljaddActionOpenFP"></div>
+</fieldset>
+
+</div>
+</div>
+<!--Insets----------------------------------------------------------------------------------------->
+<div class="content" id="div_insets">
+<div style="margin:11px;">
+<div class="msg" id="ljaddInsetsList"></div>
+<br/>
+<select id="insets_list" size="6" style="width:100%;font-weight:bold;">
+</select>
+<br/>
+<div class="msg" id="ljaddTextName"></div>
+<br/>
+<input type="text" id="insets_name" style="width:100%;"/>
+<br/>
+<div class="msg" id="ljaddInsetsImage"></div>
+<br/>
+<input type="checkbox" id="insets_check"/> <div class="msg" id="ljaddInsetsImageOnly"></div>
+<br/>
+<input type="text" id="insets_url" style="width:100%;"/>
+<br/>
+<div class="msg" id="ljaddInsetsText"></div>
+<br/>
+<textarea id="insets_text" style="width:100%;height:60px;">
+</textarea>
+<br/>
+<input type="button" class="omsg" msg="ljaddTextAdd" value="New" id="insets_new" onclick="insets_New()"/>
+<input type="button" class="omsg" msg="ljaddTextSave" value="Save" id="insets_save" onclick="insets_Save()"/>
+<input type="button" class="omsg" msg="ljaddDelete" value="Delete" id="insets_delete" onclick="insets_Delete()"/>
+<br/>
+<div class="msg" id="ljaddRandomQuotes"></div>
+<br/>
+<textarea id="insets_random" style="width:100%;height:60px;">
+</textarea>
+<br/>
+<br/>
+<input type="checkbox" id="insets_insetblock"/> <div class="msg" id="ljaddAddInsetBlock"></div>
+<br/>
+<input type="radio" name="insets_insetblockplace"/> <div class="msg" id="ljaddAddInsetBlockTop"></div>
+<br/>
+<input type="radio" name="insets_insetblockplace"/> <div class="msg" id="ljaddAddInsetBlockBottom"></div>
+<br/>
+<input type="radio" name="insets_insetblockplace"/> <div class="msg" id="ljaddAddInsetBlockLeft"></div>
+<br/>
+<input type="radio" name="insets_insetblockplace"/> <div class="msg" id="ljaddAddInsetBlockRight"></div>
+<br/>
+<input type="radio" name="insets_insetblockplace"/> <div class="msg" id="ljaddAddInsetBlockFloat"></div>
+</div>
+</div>
+
+<!--Communication---------------------------------------------------------------------------------->
+<div class="content" id="div_communication">
+<div style="margin:11px;">
+<input type="checkbox" id="communication_userpics"/> <div class="msg" id="ljaddRandomizeUserpics"></div>
+<br/>
+<input type="checkbox" id="communication_commentbuttons"/> <div class="msg" id="ljaddAddCommentButtons"></div>
+<br/>
+<!--input type="checkbox" id="communication_stylemine"/> <div class="msg" id="ljaddAddStyleMine"></div>
+<br/-->
+<div style="display:inline;background-color:#dddddd;cursor:default" title="" tmsg="ljaddNotForAllStyles">?</div>&nbsp;<input type="checkbox" id="communication_comunfolders"/> <div class="msg" id="ljaddAddCommentUnfolders"></div>
+<br/>
+<div style="display:inline;background-color:#dddddd;cursor:default" title="" tmsg="ljaddNotForAllStyles">?</div>&nbsp;<input type="checkbox" id="communication_bigunfolders"/> <div class="msg" id="ljaddBigUnfolders"></div>
+<br/>
+<div style="display:inline;background-color:#dddddd;cursor:default" title="" tmsg="ljaddNotForAllStyles">?</div>&nbsp;<input type="checkbox" id="communication_hidecomfolders"/> <div class="msg" id="ljaddHideCommentFolders"></div>
+<br/>
+<div style="display:inline;background-color:#dddddd;cursor:default" title="" tmsg="ljaddNotForAllStyles">?</div>&nbsp;<input type="checkbox" id="communication_autounfold"/> <div class="msg" id="ljaddAutoUnfold"></div>
+<br/>
+<div style="display:inline;background-color:#dddddd;cursor:default" title="" tmsg="ljaddNotForAllStyles">?</div>&nbsp;<input type="checkbox" disabled id="communication_allpages"/> <div class="msg" id="ljaddAutoUnfoldAllPages"></div>
+<br/>
+<br/>
+<div class="msg" id="ljaddLinkSearch"></div>
+<textarea id="communication_search" style="width:100%;height:60px;">
+</textarea>
+</div>
+</div>
+<!--Changes---------------------------------------------------------------------------------------->
+<div class="content" id="div_changes">
+<div>
+<ul>
+<li>1.2.2</li>
+	<ul>
+		<li>Options page.</li>
+		<li>Randomize userpics.</li>
+		<li>Minor bugs were fixed.</li>
+	</ul>
+</ul>
+<ul>
+<li>1.2.3</li>
+	<ul>
+		<li>"style=mine" option was added (see options page, "Communication").</li>
+	</ul>
+</ul>
+<ul>
+<li>1.2.3.1 - 1.2.3.4</li>
+	<ul>
+		<li>Some bugs were fixed.</li>
+	</ul>
+</ul>
+<ul>
+<li>1.2.3.5</li>
+	<ul>
+		<li>Bug with insets was fixed.</li>
+	</ul>
+</ul>
+<ul>
+<li>1.2.4.0</li>
+	<ul>
+		<li>Autounfolding was added.</li>
+		<li>Bug with randomized userpic was fixed.</li>
+	</ul>
+</ul>
+<ul>
+<li>1.2.5.0</li>
+	<ul>
+		<li>"Comment unfolders" was added.</li>
+	</ul>
+</ul>
+<ul>
+<li>1.3.0</li>
+	<ul>
+		<li>Context popup menu for links and images was added.</li>
+		<li>Buttons for unfolding all comments were added.</li>
+	</ul>
+</ul>
+<ul>
+<li>1.3.1</li>
+	<ul>
+		<li>Option page "Reading" was added with several new options.</li>
+	</ul>
+</ul>
+<ul>
+<li>1.3.2</li>
+	<ul>
+		<li>"Buttons above comment block" option was added.</li>
+		<li>"Hide comment folders till mouse on" option was added.</li>
+	</ul>
+</ul>
+<ul>
+<li>1.4.0</li>
+	<ul>
+		<li>Internationalization (en/ru).</li>
+		<li>"Page link searching" option was added.</li>
+		<li>"Maximum image width in the Friends page" option was added.</li>
+	</ul>
+</ul>
+<ul>
+<li>1.5.0</li>
+	<ul>
+		<li>"Open all LJ cross-links..." option was added.</li>
+		<li>"Add "style=mine" to the current URL" option was removed.</li>
+	</ul>
+</ul>
+<ul>
+<li>1.5.1</li>
+	<ul>
+		<li>"Minimum for the browse mode" option was added.</li>
+	</ul>
+</ul>
+<ul>
+<li>1.5.2</li>
+	<ul>
+		<li>Bug with lj-cut unfolders was fixed.</li>
+		<li>Bug with pics and l-userpic urls was fixed.</li>
+	</ul>
+</ul>
+<ul>
+<li>1.5.3</li>
+	<ul>
+		<li>Minor fixes.</li>
+	</ul>
+</ul>
+<ul>
+<li>1.6.0</li>
+	<ul>
+		<li>"LJ Instant Comment" script was added.</li>
+	</ul>
+</ul>
+<ul>
+<li>1.7.0</li>
+	<ul>
+		<li>Insets now are in context menu.</li>
+		<li>Bug with popup buttons showing/hiding was fixed.</li>
+	</ul>
+</ul>
+<ul>
+<li>1.8.0</li>
+	<ul>
+		<li>Option "LJ Times" was added.</li>
+	</ul>
+</ul>
+<ul>
+<li>1.8.2</li>
+	<ul>
+		<li>Some bugs were fixed.</li>
+	</ul>
+</ul>
+<ul>
+<li>1.9.0</li>
+	<ul>
+		<li>"Add inset block" option was added.</li>
+		<li>Some bugs were fixed.</li>
+	</ul>
+</ul>
+<ul>
+<li>1.10.0</li>
+	<ul>
+		<li>"Tips" were added.</li>
+		<li>"LJTime" option was removed.</li>
+	</ul>
+</ul>
+<ul>
+<li>2.0.0</li>
+	<ul>
+		<li>Friend's page notifications were added.</li>
+		<li>"Unfolders size" option was added.</li>
+	</ul>
+</ul>
+<ul>
+<li>2.1.0</li>
+	<ul>
+		<li>"Show unread messages count" option was added.</li>
+		<li>"Icon click action" option was added.</li>
+	</ul>
+</ul>
+<ul>
+<li>2.1.1</li>
+	<ul>
+		<li>Bug with "Icon click action" option was fixed.</li>
+	</ul>
+</ul>
+<ul>
+    <li>2.2.0</li>
+        <ul>
+            <li>"Result of click on popup" option was added.</li>
+            <li>Popup is hided after 4 seconds.</li>
+        </ul>
+    </ul>
+</ul>
+<ul>
+    <li>2.2.2</li>
+        <ul>
+            <li>Options page is flexible now.</li>
+            <li>Bug with bgColor of comments block is fixed.</li>
+        </ul>
+    </ul>
+</ul>
+<ul>
+    <li>2.3.0</li>
+        <ul>
+            <li>Unfolders ("+"/"-") are icons now.</li>
+            <li>"Unfolder size" option was removed.</li>
+            <li>"Use big unfolders" option was added.</li>
+        </ul>
+    </ul>
+</ul>
+<ul>
+    <li>2.4.0</li>
+        <ul>
+            <li>Bug with float insets block was fixed.</li>
+            <li>"Time while popup is shown" option was added.</li>
+            <li>"Use reverse order of posts in menu" option was added.</li>
+        </ul>
+    </ul>
+</ul>
+</div>
+</div>
+
+</div>
+</td>
+</tr>
+<!--Buttons---------------------------------------------------------------------------------------->
+<tr>
+<td>
+<input class="omsg" msg="ljaddExport" type="button" value="Export" id="export"  style="width:100%;" disabled=""/>
+</td>
+<td width="100%" colspan="3" style="width:1140px;" class="blank_td">
+&nbsp;
+</td>
+<td>
+<input class="omsg" msg="ljaddApply" type="button" value="Apply" id="apply"  style="width:100%;" onclick="apply()"/>
+</td>
+</tr>
+<tr>
+<td>
+<input class="omsg" msg="ljaddImport" type="button" value="Import" id="import"  style="width:100%;" disabled=""/>
+</td>
+<td>
+<input class="omsg" msg="ljaddReset" type="button" value="Reset" id="reset" onclick="reset()"/>
+</td>
+<td width="100%" style="width:1000px;" class="blank_td">
+&nbsp;
+</td>
+<td>
+<input class="omsg" msg="ljaddOk" type="button" value="OK" id="ok" style="width:100%;" onclick="ok()"/>
+</td>
+<td>
+<input class="omsg" msg="ljaddCancel" type="button" value="Cancel" id="cancel" style="width:100%;" onclick="cancel()"/>
+</td>
+</tr>
+
+</table>
+</td></tr></table>
+</body>
+</html>
