@@ -6,7 +6,7 @@
 <script>
 var ljaddCheckerFP;
 var ljaddFPContainer = document.createElement("div");
-var menuFP = {numberOfEntries: 0, newEntriesTexts: [], curEntriesLinks: [], replyFP: ""};
+var menuFP = {numberOfEntries: 0, newEntriesTexts: [], curEntriesLinks: [], replyFP: "", reverseOrder: true};
 
 initStrings();
 initDefaults();
@@ -167,7 +167,7 @@ function ljaddRestartCheckFriendsPage() {
 /*************************************************************************************************/
 function ljaddCheckFriendsPage() {
 	chrome.browserAction.setIcon({path: chrome.extension.getURL("images/pencil_16.png")});
-	menuFP = {numberOfEntries: 0, newEntriesTexts: [], curEntriesLinks: [], replyFP: ""};
+	menuFP = {numberOfEntries: 0, newEntriesTexts: [], curEntriesLinks: [], replyFP: "", reverseOrder: true};
 	var checkTime = Date().match(/\d+:\d+/);
 
 	var req = new XMLHttpRequest();
@@ -297,7 +297,7 @@ function ljaddCheckFriendsPage() {
 
 		chrome.browserAction.setTitle({title: tooltip});
 
-		menuFP = {numberOfEntries: numberOfEntries, newEntriesTexts: newEntriesTexts, curEntriesLinks: curEntriesLinks, replyFP: Strings.replyFP};
+		menuFP = {numberOfEntries: numberOfEntries, newEntriesTexts: newEntriesTexts, curEntriesLinks: curEntriesLinks, replyFP: Strings.replyFP, reverseOrder: localStorage["ljaddReverseOrderOpt"] == "true"};
 
 		if (addNumber) {
 			if ((localStorage["ljaddNotificationOpt"] != "false")){
@@ -309,10 +309,9 @@ function ljaddCheckFriendsPage() {
 							);
 					notification.show();
                     notification.onclick = ljaddNotificationListenerPosts;
-                    setTimeout(function(){
-                        notification.cancel()}, 4000);
-
-
+                    if(Number(localStorage["ljaddNotificationTime"]) > 0)
+                        setTimeout(function(){
+                            notification.cancel()}, Number(localStorage["ljaddNotificationTime"]) * 1000);
 				} catch(e) {}
 			}
 		}

@@ -63,6 +63,8 @@ var ljaddBigUnfoldersDefault = false;
 var ljaddBadgeOptDefault = true;
 var ljaddIconClickActionDefault = 0;
 var ljaddNotificationFpOpenDefault = 0;
+var ljaddReverseOrderOptDefault = true;
+var ljaddNotificationTimeDefault = 4;
 
 function initDefaults()
 {
@@ -137,6 +139,10 @@ function initDefaultsByType(type)
 			localStorage.setItem("ljaddIconClickAction", new String(ljaddIconClickActionDefault));
         if(localStorage.getItem("ljaddNotificationFpOpen") == null)
             localStorage.setItem("ljaddNotificationFpOpen", new String(ljaddNotificationFpOpenDefault));
+        if(localStorage.getItem("ljaddReverseOrderOpt") == null)
+            localStorage.setItem("ljaddReverseOrderOpt", ljaddReverseOrderOptDefault ? "true" : "false");
+        if(localStorage.getItem("ljaddNotificationTime") == null)
+            localStorage.setItem("ljaddNotificationTime", new String(ljaddNotificationTimeDefault));
 	}
 	else if(type == "insets")
 	{
@@ -212,6 +218,8 @@ function resetDefaultsByType(type)
 		localStorage.setItem("ljaddBadgeOpt", ljaddBadgeOptDefault ? "true" : "false");
 		localStorage.setItem("ljaddIconClickAction", new String(ljaddIconClickActionDefault));
         localStorage.setItem("ljaddNotificationFpOpen", new String(ljaddNotificationFpOpenDefault));
+        localStorage.setItem("ljaddReverseOrderOpt", ljaddReverseOrderOptDefault ? "true" : "false");
+        localStorage.setItem("ljaddNotificationTime", new String(ljaddNotificationTimeDefault));
 	}
 	else if(type == "insets")
 	{

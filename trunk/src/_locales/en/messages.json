@@ -490,6 +490,12 @@
 "ljaddNotificationFpOpenNewReply": {
  "message": "new (reply)"
 },
+"ljaddReverseOrderOpt": {
+ "message": "Use reverse order of posts in menu"
+},
+"ljaddNotificationTime": {
+ "message": "Time while popup is shown (seconds)"
+},
 
 
 "ljaddInsets": {

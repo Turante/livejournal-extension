@@ -1336,6 +1336,11 @@ function ljaddInset(insetIndex, textField) {
 		ljaddChangeField(textField);
 	}*/
 	textField.focus();
+    if(event)
+    {
+        event.preventDefault();
+        return false;
+    }
 }
 /*************************************************************************************************/
 /*************************************************************************************************/

@@ -152,6 +152,14 @@ function prepareTab(id)
 		{
 			actions[i].onchange = function(){changed = true;};
 		}
+
+        var reverseOpt = document.getElementById("checking_reverseorder");
+        reverseOpt.checked = localStorage.getItem("ljaddReverseOrderOpt") == "true" ? true : false;
+        reverseOpt.onchange = function(){changed = true;};
+
+        var timePopup = document.getElementById("checking_notificationtime");
+        timePopup.value = localStorage.getItem("ljaddNotificationTime");
+        timePopup.onchange = function(){changed = true;};
 	}
 	else if(id == "insets")
 	{
@@ -378,6 +386,8 @@ function apply()
 		chrome.extension.getBackgroundPage().ljaddCheckFriendsPage();
         var postsAction = document.getElementsByName("checking_postsclickaction");
         localStorage.setItem("ljaddNotificationFpOpen", postsAction[0].checked ? 0 : postsAction[1].checked ? 1 : 2);
+        localStorage.setItem("ljaddReverseOrderOpt", document.getElementById("checking_reverseorder").checked ? "true" : "false");
+        localStorage.setItem("ljaddNotificationTime", document.getElementById("checking_notificationtime").value);
 	}
 	else if(selected == "insets")
 	{

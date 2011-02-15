@@ -30,31 +30,43 @@ function getDataFromBackgroundPage()
 	var backgroundPage = chrome.extension.getBackgroundPage();
 	var menuFP = backgroundPage.getMenuFP();
 
-	for (var i = (menuFP.numberOfEntries - 1); i >=0 ; i--) {
-		var menuitem = document.createElement("a");
-		menuitem.setAttribute("title", menuFP.replyFP);
-		menuitem.style.whiteSpace = "nowrap";
-		menuitem.href = "#";
+    if(menuFP.reverseOrder)
+        for (var i = (menuFP.numberOfEntries - 1); i >=0 ; i--)
+        {
+            createMenuItem(menuFP.newEntriesTexts[i], menuFP.curEntriesLinks[i], menuFP.replyFP)
+        }
+    else
+        for (var i = 0; i < menuFP.numberOfEntries; i++)
+        {
+            createMenuItem(menuFP.newEntriesTexts[i], menuFP.curEntriesLinks[i], menuFP.replyFP)
+        }
+}
 
-		var text = menuFP.newEntriesTexts[i];
-		if(text.indexOf(":") > -1)
-			text = "<b>" + text.substring(0, text.indexOf(":") + 1) + "</b>" + text.substring(text.indexOf(":") + 1, text.length);
+function createMenuItem(newEntriesTexts, curEntriesLinks, replyFP)
+{
+    var menuitem = document.createElement("a");
+    menuitem.setAttribute("title", replyFP);
+    menuitem.style.whiteSpace = "nowrap";
+    menuitem.href = "#";
 
-		if (menuFP.curEntriesLinks[i].search(/\x0b$/) > -1) {
-			menuitem.setAttribute("onclick",
-				"ljaddOpenEntryByClick('" +
-				menuFP.curEntriesLinks[i].replace(/\x0b$/, "") +
-				"', event, 1); ljaddMarkThisPostAsRead('" +
-				menuFP.curEntriesLinks[i] +
-				"')");
-			menuitem.innerHTML = "* " + text;
-		}
-		else {
-			menuitem.setAttribute("onclick", "ljaddOpenEntryByClick('" + menuFP.curEntriesLinks[i] + "', event, 1)");
-			menuitem.innerHTML = "&nbsp;&nbsp;" + text;
-		}
-		document.body.appendChild(menuitem);
-	}
+    var text = newEntriesTexts;
+    if(text.indexOf(":") > -1)
+        text = "<b>" + text.substring(0, text.indexOf(":") + 1) + "</b>" + text.substring(text.indexOf(":") + 1, text.length);
+
+    if (curEntriesLinks.search(/\x0b$/) > -1) {
+        menuitem.setAttribute("onclick",
+            "ljaddOpenEntryByClick('" +
+            curEntriesLinks.replace(/\x0b$/, "") +
+            "', event, 1); ljaddMarkThisPostAsRead('" +
+            curEntriesLinks +
+            "')");
+        menuitem.innerHTML = "* " + text;
+    }
+    else {
+        menuitem.setAttribute("onclick", "ljaddOpenEntryByClick('" + curEntriesLinks + "', event, 1)");
+        menuitem.innerHTML = "&nbsp;&nbsp;" + text;
+    }
+    document.body.appendChild(menuitem);
 }
 
 
