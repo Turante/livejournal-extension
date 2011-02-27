@@ -128,6 +128,9 @@
 "markAsRead": {
  "message": "Mark as read"
 },
+"markAllAsRead": {
+ "message": "Mark all as read"
+},
 "FriendsPageBirthdays": {
  "message": "Friends' birthdays"
 },

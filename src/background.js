@@ -290,10 +290,10 @@ function ljaddOpenEntryByClick(entryURL, event, ctrl) {
 		}
 		chrome.windows.getCurrent(function(w){
 			chrome.tabs.getSelected(w.id, function(tab){
-				if(tab.url == "about:blank"
+				if((tab.url == "about:blank" || tab.url == "" || tab.url == "chrome://newtab/")
 					&& tab.status != "loading"
-						|| event.button != 1
-						&& !event.shiftKey)
+						/*|| event.button != 1
+						&& !event.shiftKey*/)
 				{
 					chrome.tabs.update(tab.id, {url: entryURL});
 				}
@@ -314,10 +314,10 @@ function ljaddOpenEntryByClick(entryURL, event, ctrl) {
 		}
 		chrome.windows.getCurrent(function(w){
 			chrome.tabs.getSelected(w.id, function(tab){
-				if(tab.url == "about:blank"
+				if((tab.url == "about:blank" || tab.url == "" || tab.url == "chrome://newtab/")
 					&& tab.status != "loading"
-						|| event.button != 1
-						&& !event.shiftKey)
+						/*|| event.button != 1
+						&& !event.shiftKey*/)
 				{
 					chrome.tabs.update(tab.id, {url: entryURL});
 				}
@@ -336,11 +336,27 @@ function ljaddMarkThisPostAsRead(post) {
 	for (var i=0, arrayLength = posts.length; i < arrayLength; i++) {
 		if (posts[i] == post) {
 			posts[i] = posts[i].replace(/\x0b$/, "");
+            post = posts[i];
 			break;
 		}
 	}
 	localStorage["ljaddFriendsPageLinks"] = (posts.join("\x0c"));
 	chrome.extension.getBackgroundPage().ljaddRestartCheckFriendsPage();
+    return post;
+}
+/*************************************************************************************************/
+function ljaddMarkThisPostAsUnRead(post) {
+	var posts = localStorage["ljaddFriendsPageLinks"].split("\x0c");
+	for (var i=0, arrayLength = posts.length; i < arrayLength; i++) {
+		if (posts[i] == post) {
+			posts[i] = posts[i] + '\x0b';
+            post = posts[i];
+			break;
+		}
+	}
+	localStorage["ljaddFriendsPageLinks"] = (posts.join("\x0c"));
+	chrome.extension.getBackgroundPage().ljaddRestartCheckFriendsPage();
+    return post;
 }
 /*************************************************************************************************/
 function ljaddGetUser(URL) {
