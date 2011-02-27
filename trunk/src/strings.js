@@ -77,6 +77,7 @@ Strings.loadComments = chrome.i18n.getMessage("loadComments");
 Strings.loadEntryHere = chrome.i18n.getMessage("loadEntryHere");
 Strings.loading = chrome.i18n.getMessage("loading");
 Strings.markAsRead = chrome.i18n.getMessage("markAsRead");
+Strings.markAllAsRead = chrome.i18n.getMessage("markAllAsRead");
 Strings.memaddHere = chrome.i18n.getMessage("memaddHere");
 Strings.messages = chrome.i18n.getMessage("messages");
 Strings.newComments = chrome.i18n.getMessage("newComments");

@@ -6,7 +6,7 @@
 <script>
 var ljaddCheckerFP;
 var ljaddFPContainer = document.createElement("div");
-var menuFP = {numberOfEntries: 0, newEntriesTexts: [], curEntriesLinks: [], replyFP: "", reverseOrder: true};
+var menuFP = {numberOfEntries: 0, newEntriesTexts: [], curEntriesLinks: [], replyFP: "", replyHere: "", markAllAsRead: ""};
 
 initStrings();
 initDefaults();
@@ -14,7 +14,7 @@ initDefaults();
 chrome.extension.onRequest.addListener(
   function(request, sender, sendResponse)
   {
-	if(!sender.tab)
+      if(!sender.tab && request.type != "call")
 		return;
 
 	if(request.type != "tabs" && request.url)
@@ -44,9 +44,12 @@ chrome.extension.onRequest.addListener(
 	{
 		chrome.tabs.create({url: request.url});
 	}
-	else if(request.type == "call" && request.action == "ljaddMarkAllPostsAsRead")
+	else if(request.type == "call")
 	{
-		ljaddMarkAllPostsAsRead(false);
+		if(request.action == "ljaddMarkAllPostsAsRead")
+            ljaddMarkAllPostsAsRead(false);
+        else if(request.action == "ljaddRestartCheckFriendsPage")
+            ljaddRestartCheckFriendsPage();
 	}
   });
 
@@ -166,15 +169,14 @@ function ljaddRestartCheckFriendsPage() {
 }
 /*************************************************************************************************/
 function ljaddCheckFriendsPage() {
-	chrome.browserAction.setIcon({path: chrome.extension.getURL("images/pencil_16.png")});
-	menuFP = {numberOfEntries: 0, newEntriesTexts: [], curEntriesLinks: [], replyFP: "", reverseOrder: true};
+	chrome.browserAction.setIcon({path: chrome.extension.getURL("images/pencil_16_dis.png")});
+	menuFP = {numberOfEntries: 0, newEntriesTexts: [], curEntriesLinks: [], replyFP: "", replyHere: "", markAllAsRead: ""};
 	var checkTime = Date().match(/\d+:\d+/);
 
 	var req = new XMLHttpRequest();
 	req.open("GET", "http://www.livejournal.com/mobile/friends.bml", true);
 //	req.channel.loadFlags |= ljaddCi.nsIRequest.LOAD_BYPASS_CACHE;
 	req.onload = function() {
-		chrome.browserAction.setIcon({path: chrome.extension.getURL("images/pencil_16.png")});
 		chrome.browserAction.setBadgeText({text: ""});
 		ljaddFPContainer.innerHTML = this.responseText;
 		var tipNewsOnly = localStorage["ljaddFriendsPageTipNewsOnly"] == "true";
@@ -296,8 +298,9 @@ function ljaddCheckFriendsPage() {
 		}
 
 		chrome.browserAction.setTitle({title: tooltip});
+        chrome.browserAction.setIcon({path: chrome.extension.getURL("images/pencil_16.png")});
 
-		menuFP = {numberOfEntries: numberOfEntries, newEntriesTexts: newEntriesTexts, curEntriesLinks: curEntriesLinks, replyFP: Strings.replyFP, reverseOrder: localStorage["ljaddReverseOrderOpt"] == "true"};
+		menuFP = {numberOfEntries: numberOfEntries, newEntriesTexts: newEntriesTexts, curEntriesLinks: curEntriesLinks, replyFP: Strings.replyFP, replyHere: Strings.replyHere, markAllAsRead: Strings.markAllAsRead};
 
 		if (addNumber) {
 			if ((localStorage["ljaddNotificationOpt"] != "false")){

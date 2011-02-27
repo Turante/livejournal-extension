@@ -2132,6 +2132,7 @@ function ljaddShowTriggers(event) {
 				triggers.style.top = "auto";
 			}
 			triggers.style.display = "block";
+            refreshDocument();
 		}
 	}, intervalShow);
 }
@@ -2143,6 +2144,7 @@ function ljaddHideTriggersOnClick() {
 	if (triggers.style.display != "none") {
 		triggers.style.display = "none";
 		triggers.setAttribute("ljaddTriggersStatus", "mouseout");
+        refreshDocument();
 	}
 }
 /*************************************************************************************************/
@@ -2153,6 +2155,7 @@ function ljaddHideTriggers() {
 		window.setTimeout(function() {
 			if (triggers.getAttribute("ljaddTriggersStatus") == "mouseout") {
 				triggers.style.display = "none";
+                refreshDocument();
 			}
 		}, intervalHide);
 	}
