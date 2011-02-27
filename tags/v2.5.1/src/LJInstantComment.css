@@ -1,0 +1,29 @@
+#instant_comment {
+	position: absolute;
+	display: none;
+	border: 1px solid #999;
+	background: #ececec;
+	padding: 1px;
+	text-align: center;
+	z-index: 99
+}
+
+#instant_comment textarea {
+	width: "+_window_width+" px;
+	height: "+_window_height+" px;
+	min-height: 10px;
+	margin: 1px;
+	border: 1px solid #999;
+	padding-left: 3px;
+	background: white;
+	color: black;
+}
+
+#instant_comment textarea:focus {
+	border: 1px solid black;
+}
+
+#instant_comment small {
+	color: #999;
+	font: 10px Arial
+}

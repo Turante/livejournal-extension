@@ -1,0 +1,617 @@
+﻿{
+"loadEntryHere": {
+ "message": "Загрузить запись"
+},
+"threadAdded": {
+ "message": "Список отслеживания комментариев обновлён."
+},
+"memaddHere": {
+ "message": "Добавить в избранное"
+},
+"exportAbort": {
+ "message": "Прервать экспортирование?"
+},
+"DOMEditTip8": {
+ "message": "Клавиша «Влево» = отменить последнее изменение."
+},
+"wrongURL": {
+ "message": "URL не принадлежит Живому Журналу."
+},
+"anonymous": {
+ "message": "Анонимно"
+},
+"DOMEditTip7": {
+ "message": "Клавиша «Вниз» = перейти обратно."
+},
+"DOMEditTip6": {
+ "message": "Клавиша «Вверх» = перейти к родительскому элементу."
+},
+"DOMEditTip5": {
+ "message": "Правая кнопка = применить стиль."
+},
+"commentUnfolderTip": {
+ "message": "Левая кнопка -> ветка, средняя -> комментарий, любая + Ctrl/Meta -> уровень выше"
+},
+"DOMEditTip4": {
+ "message": "Средняя кнопка = вырезать."
+},
+"newMessages": {
+ "message": "Новые уведомления"
+},
+"DOMEditTip3": {
+ "message": "Левая кнопка мыши на элементе = удалить."
+},
+"DOMEditTip2": {
+ "message": "Ввести стиль вручную"
+},
+"DOMEditTip1": {
+ "message": "Выйти из режима редактирования"
+},
+"DOMEditTip0": {
+ "message": "+ Ctrl/Meta = временно блокировать редактирование."
+},
+"toFlat1": {
+ "message": "Комментарии в линейном (временном) формате: первая страница"
+},
+"allCommentsInLast": {
+ "message": "на последней странице линейного формата"
+},
+"unfoldAllPages": {
+ "message": "Развернуть все страницы комментариев"
+},
+"reportBotHere": {
+ "message": "Сообщить о боте"
+},
+"exportFail": {
+ "message": "Экспорт не был завершён."
+},
+"friends": {
+ "message": "> Друзья"
+},
+"tomorrow": {
+ "message": "Завтра:"
+},
+"floatTip": {
+ "message": "(нажмите Ctrl/Meta для загрузки в плавающий блок)"
+},
+"watchedThreadsInfo": {
+ "message": "Список отслеживания комментариев (ветки помечены серым фоном, посты — обычным).<br>Пополняйте список через контекстное меню ссылок на посты или отдельные ветки.<br>Для добавления в список текущей страницы можно использовать меню статусной строки.<br>Если все комментарии на последней странице линейного формата являются новыми, следует проверить также предыдущие страницы."
+},
+"linkSearchTitle": {
+ "message": "Искать ссылки на эту страницу (+ Ctrl/Meta = результаты во встроенный блок)"
+},
+"shortcutUsed": {
+ "message": "Сочетание клавиш уже используется."
+},
+"noSubject": {
+ "message": "без темы"
+},
+"batchEditingFail": {
+ "message": "Пакетное редактирование не было завершено."
+},
+"fileNotCreated": {
+ "message": "Не получается создать файл."
+},
+"batchEditingComplete": {
+ "message": "Пакетное редактирование завершено."
+},
+"list": {
+ "message": "Формирование списка постов"
+},
+"allCommentsInThread": {
+ "message": "в ветке"
+},
+"noStyle": {
+ "message": "К этой странице данный стиль не применим."
+},
+"newComments": {
+ "message": "Новых комментариев"
+},
+"exportJournal": {
+ "message": "журнал"
+},
+"currentTabTip": {
+ "message": "(нажмите Ctrl/Meta для открытия в текущей вкладке)"
+},
+"friendsResetChanges": {
+ "message": "Очистить список изменений"
+},
+"replyHere": {
+ "message": "Ответить"
+},
+"watchThread": {
+ "message": "Следить за комментариями"
+},
+"editMyEntry": {
+ "message": "Редактировать запись"
+},
+"markAsRead": {
+ "message": "Пометить как прочитанное"
+},
+"markAllAsRead": {
+ "message": "Пометить все как прочитанное"
+},
+"FriendsPageBirthdays": {
+ "message": "Дни рождения друзей"
+},
+"browseImagesTrigger": {
+ "message": "Просмотреть изображения начиная с этого"
+},
+"FriendsPageChanged": {
+ "message": "Изменения в Ленте друзей"
+},
+"batchEditingAbort": {
+ "message": "Прервать редактирование?"
+},
+"exportNoTags": {
+ "message": "Нет меток"
+},
+"browseImagesStop": {
+ "message": "Выйти из режима просмотра изображений"
+},
+"tagList": {
+ "message": "Список меток"
+},
+"open": {
+ "message": "Открыть для прочтения"
+},
+"exportSave": {
+ "message": "Сохранение страниц"
+},
+"deleteThread": {
+ "message": "Удалить из списка"
+},
+"watchedThreadsTitle": {
+ "message": "Список отслеживания комментариев"
+},
+"messages": {
+ "message": "Уведомлений:"
+},
+"ljDeleted": {
+ "message": "(удалён)"
+},
+"loadComments": {
+ "message": "Загрузить комментарии"
+},
+"lastCheckTime": {
+ "message": "Время последней проверки"
+},
+"close": {
+ "message": "Закрыть"
+},
+"exportCode": {
+ "message": "<Код>"
+},
+"friendsChanged": {
+ "message": "Изменения в списке друзей"
+},
+"noBirthdays": {
+ "message": "нет дней рождения"
+},
+"noWatchedThreads": {
+ "message": "Список отслеживания комментариев пуст."
+},
+"today": {
+ "message": "Сегодня:"
+},
+"homePage": {
+ "message": "http://ljaddons.livejournal.com/14787.html"
+},
+"exportTitle": {
+ "message": "Экспорт"
+},
+"replyFP": {
+ "message": "Нажмите Ctrl/Meta для ответа"
+},
+"watchNotEdit": {
+ "message": "Пожалуйста, не редактируйте список во время проверок."
+},
+"watchedPost": {
+ "message": "ПОСТ"
+},
+"noPost": {
+ "message": "Записей не найдено."
+},
+"checkThread": {
+ "message": "Проверить"
+},
+"unfoldPageComments": {
+ "message": "Развернуть все комментарии на этой странице"
+},
+"openNewComments": {
+ "message": "Открыть новые комментарии для прочтения"
+},
+"threadsErrors": {
+ "message": "Из-за ошибок соединения имеются непроверенные адреса:"
+},
+"fileNotFound": {
+ "message": "Файл не найден."
+},
+"openFeed": {
+ "message": "Открыть RSS (+ Shift = Atom, + Ctrl/Meta = в текущей вкладке)"
+},
+"noData": {
+ "message": "Нет данных"
+},
+"addNetImportURL": {
+ "message": "Пожалуйста, введите URL в настройках."
+},
+"loading": {
+ "message": "Загрузка"
+},
+"batchEditingSelectAction": {
+ "message": "Пожалуйста, выберите действие."
+},
+"watchedThread": {
+ "message": "ВЕТКА"
+},
+"exportComplete": {
+ "message": "Экспорт завершён."
+},
+"noImages": {
+ "message": "Страница не содержит подходящих изображений."
+},
+"editMLE": {
+ "message": "Нажмите Ctrl/Meta для редактирования"
+},
+"newPosts": {
+ "message": "Новых записей:"
+},
+"exportMemories": {
+ "message": "избранное"
+},
+"verifyThread": {
+ "message": "Пожалуйста, проверьте актуальность ссылки"
+},
+"tagFillingListTitle": {
+ "message": "Используйте Ctrl/Meta для выбора нескольких разрозненных меток и Shift для меток, идущих подряд."
+},
+"regexpError": {
+ "message": "Ошибка в регулярном выражении"
+},
+"exportHeadByTime": {
+ "message": "По времени"
+},
+"noNewComments": {
+ "message": "Во время последней проверки не найдено новых комментариев"
+},
+"allComments": {
+ "message": "Всех комментариев"
+},
+"copyB": {
+ "message": "Нажмите Ctrl/Meta, чтобы скопировать имя пользователя"
+},
+"error": {
+ "message": "Нет соединения или ошибка в анализе данных. Пожалуйста, подождите или попробуйте ещё раз."
+},
+"FpError": {
+ "message": "Ошибка в анализе данных. Пожалуйста, подождите или попробуйте ещё раз. Новые посты проверяются по мобильному варианту ленты, который формируется из группы «Mobile View», а при её отсутствии — из группы «Default View». Эти группы можно использовать как фильтр для расширения. Если фильтр не нужен, удалите эти группы. Если расширение не видит Вашу ленту друзей, проверьте, нет ли у Вас этих групп как пустых заготовок по умолчанию."
+},
+"ljPurged": {
+ "message": "(окончательно удалён)"
+},
+"threadNotAdded": {
+ "message": "Комментарии уже отслеживаются."
+},
+"noKey": {
+ "message": "Подходящих ключей не найдено."
+},
+"friendsNotChanged": {
+ "message": "Нет изменений в списке друзей"
+},
+"batchEditingNoFriendgroups": {
+ "message": "Групп друзей не найдено."
+},
+"noMultipleUnfolding": {
+ "message": "Множественное разворачивание на одной странице не поддерживается."
+},
+"profileHere": {
+ "message": "Загрузить профиль"
+},
+"linkSearchNoURL": {
+ "message": "URL для запросов не определены. Создайте список в настройках."
+},
+"require": {
+ "message": "Пожалуйста, правильно заполните поля, помеченные звёздочками."
+},
+"exportProfile": {
+ "message": "Профиль"
+},
+"exportHeadByTags": {
+ "message": "По меткам"
+},
+"batchEditingTitle": {
+ "message": "Пакетное редактирование журнала"
+},
+"toTree": {
+ "message": "Комментарии в древовидном формате"
+},
+"notSuitablePage": {
+ "message": "К этой странице данная функция не применима."
+},
+"subscribeHere": {
+ "message": "Подписаться"
+},
+"ljSuspended": {
+ "message": "(заморожен)"
+},
+"addFriendHere": {
+ "message": "Добавить/удалить друга"
+},
+"browseImagesTip2": {
+ "message": "Правая кнопка = предыдущее."
+},
+"browseImagesTip1": {
+ "message": "Левая кнопка мыши = следующее изображение."
+},
+"noTitle": {
+ "message": "без названия"
+},
+"browseImagesTip0": {
+ "message": "+ Ctrl/Meta = временно блокировать просмотр."
+},
+"toFlatN": {
+ "message": "Комментарии в линейном (временном) формате: последняя страница"
+},
+"batchEditingProcess": {
+ "message": "Изменение записей"
+},
+"editPostTags": {
+ "message": "Редактировать метки поста"
+},
+"friendOf": {
+ "message": "< В друзьях у"
+},
+"addEditUserTip": {
+ "message": "Добавить/изменить подсказку для пользователя"
+},
+"checkThreads": {
+ "message": "Проверить всё"
+},
+"batchEditingSelectFriendgroups": {
+ "message": "Пожалуйста, выберите группы друзей."
+},
+
+
+
+
+
+
+
+
+
+
+"ljaddReading": {
+ "message": "Чтение"
+},
+"ljaddMainURL": {
+ "message": "Ваш журнал, полный URL:"
+},
+"ljaddFrPgURL": {
+ "message": "Ваша лента друзей, полный URL:"
+},
+"ljaddFullProfile": {
+ "message": "Всегда открывать полный профиль пользователей"
+},
+"ljaddAddCutUnfolders": {
+ "message": "Добавлять разворачиватели ката"
+},
+"ljaddAddTriggersImagesOpt": {
+ "message": "Плавающие иконки функций для изображений"
+},
+"ljaddAddTriggersOpt": {
+ "message": "Плавающие иконки функций для ссылок"
+},
+"ljaddAddTriggersHide": {
+ "message": "Интервал скрытия иконок (миллисек.):"
+},
+"ljaddAddTriggersShow": {
+ "message": "Интервал показа иконок (миллисек.):"
+},
+"ljaddFriendsPageMaxWidthOpt": {
+ "message": "Макс. ширина изображений в ленте:"
+},
+"ljaddMinImageWidthForBrowseOpt": {
+ "message": "Минимум для режима просмотра:"
+},
+"ljaddFormatAppendOpt": {
+ "message": "Открывать все перекрёстные ЖЖ-ссылки..."
+},
+"ljaddFormatFilter": {
+ "message": "Только URL с подстроками:"
+},
+"ljaddFormatFilterTip": {
+ "message": "Список через запятую; * = все; чтобы исключить URL, поставьте ! перед подстрокой; регулярные выражения не используются"
+},
+"ljaddFormatLynx": {
+ "message": "в упрощённом формате"
+},
+"ljaddFormatLynxOrMine": {
+ "message": "в моём стиле, если упрощённый не применим"
+},
+"ljaddFormatMine": {
+ "message": "в моём стиле"
+},
+"ljaddUserTips": {
+ "message": "Подсказки для ЖЖ-пользователей (всплывают над ссылкой на профиль; шаблон: \"ник = подсказка\", одна пара на строку)"
+},
+"ljaddUserTipsOpt": {
+ "message": "Добавлять текст подсказки к ссылкам (иначе - только всплывающая подсказка)"
+},
+"ljInstantComment": {
+ "message": "LJ Instant Comment"
+},
+"ljTime": {
+ "message": "LJ Times"
+},
+
+"ljaddCheck": {
+ "message": "Проверки"
+},
+"ljaddCheckHead": {
+ "message": "Периодически проверять (мин.):"
+},
+"ljaddFriendsPageCheckOpt": {
+ "message": "записи друзей:"
+},
+"ljaddRefresh": {
+ "message": "Обновить информацию"
+},
+"ljaddFriendsPageUpdate": {
+ "message": "после загрузки ленты друзей"
+},
+"ljaddMessagesUpdate": {
+ "message": "после закрытия страницы уведомлений"
+},
+"ljaddNotificationOpt": {
+ "message": "Показывать всплывающее окно"
+},
+"ljaddBadgeOpt": {
+ "message": "Показывать счетчик непрочитанных сообщений"
+},
+"ljaddIconClickAction": {
+ "message": "Действие при нажатии на иконку"
+},
+"ljaddActionShowPopup": {
+ "message": "Показывать меню сообщений"
+},
+"ljaddActionOpenFP": {
+ "message": "Открыть ленту друзей"
+},
+"ljaddNotificationHeadOpen": {
+ "message": "Последствия щелчка на всплывающем окне"
+},
+"ljaddNotificationFpOpen": {
+ "message": "записи друзей:"
+},
+"ljaddNotificationFpOpenAll": {
+ "message": "лента"
+},
+"ljaddNotificationFpOpenNewRead": {
+ "message": "новые (чтение)"
+},
+"ljaddNotificationFpOpenNewReply": {
+ "message": "новые (ответить)"
+},
+"ljaddReverseOrderOpt": {
+ "message": "Использовать обратный порядок записей в меню"
+},
+"ljaddNotificationTime": {
+ "message": "Время показа всплывающего окна (сек.)"
+},
+
+
+"ljaddInsets": {
+ "message": "Вставки"
+},
+"ljaddInsetsList": {
+ "message": "Список вставок:"
+},
+"ljaddTextName": {
+ "message": "* Название:"
+},
+"ljaddInsetsImage": {
+ "message": "URL изображения (не обязательно):"
+},
+"ljaddInsetsImageOnly": {
+ "message": "Вместо названия"
+},
+"ljaddInsetsText": {
+ "message": "* Текст вставки (<del>^ = буфер обмена</del>, ^^ = выделенный текст, ^^^ = случайная цитата, \\^ = ^):"
+},
+"ljaddTextAdd": {
+ "message": "Новый"
+},
+"ljaddTextSave": {
+ "message": "Сохранить"
+},
+"ljaddDelete": {
+ "message": "Удалить"
+},
+"ljaddRandomQuotes": {
+ "message": "Случайные цитаты (разделяйте строкой с одной точкой):"
+},
+"ljaddAddInsetBlock": {
+ "message": "Блок вставок (пожалуйста, перезагрузите открытые страницы после изменения):"
+},
+"ljaddAddInsetBlockTop": {
+ "message": "вверху"
+},
+"ljaddAddInsetBlockBottom": {
+ "message": "внизу"
+},
+"ljaddAddInsetBlockLeft": {
+ "message": "слева"
+},
+"ljaddAddInsetBlockRight": {
+ "message": "справа"
+},
+"ljaddAddInsetBlockFloat": {
+ "message": "плавающий"
+},
+
+"ljaddCommunication": {
+ "message": "Общение"
+},
+"ljaddRandomizeUserpics": {
+ "message": "Выбирать случайную аватарку"
+},
+"ljaddAddCommentButtons": {
+ "message": "Кнопки над блоком комментариев"
+},
+"ljaddAddStyleMine": {
+ "message": "Добавлять \"style=mine\" к URL страницы"
+},
+"ljaddAddCommentUnfolders": {
+ "message": "Разворачиватели комментариев"
+},
+"ljaddBigUnfolders": {
+ "message": "Использовать большие разворачиватели"
+},
+"ljaddHideCommentFolders": {
+ "message": "Скрывать сворачиватели до наведения мыши"
+},
+"ljaddAutoUnfold": {
+ "message": "Автоматически разворачивать комментарии"
+},
+"ljaddAutoUnfoldAllPages": {
+ "message": "Все страницы"
+},
+"ljaddLinkSearch": {
+ "message": "URL для поиска ссылок на страницу (по одному URL запроса на строку; ^ = URL искомой страницы)"
+},
+
+"ljaddChanges": {
+ "message": "Изменения"
+},
+
+"ljaddExport": {
+ "message": "Экспорт"
+},
+"ljaddImport": {
+ "message": "Импорт"
+},
+"ljaddReset": {
+ "message": "Сбросить"
+},
+"ljaddOk": {
+ "message": "ОК"
+},
+"ljaddCancel": {
+ "message": "Отмена"
+},
+"ljaddApply": {
+ "message": "Применить"
+},
+"ljaddSaveAllChanges": {
+ "message": "Сохранить изменения?"
+},
+"ljaddNotForAllStyles": {
+ "message": "Не для всех стилей"
+},
+"ljaddResetToDefaults": {
+ "message": "Вернуть исходные настройки?"
+}
+
+
+}

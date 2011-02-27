@@ -1,0 +1,283 @@
+<html>
+<head>
+    <style type="text/css">
+        div.menuitem {
+            border: 2px solid #E5EFFE;
+            -webkit-border-radius:5px;
+            display: block;
+            width: 100%;
+            padding: 5px 5px 5px 5px;
+            margin: 1px 0px 1px 0px;
+            background-color: white;
+        }
+    </style>
+
+    <script src="background.js"> </script>
+    <script>
+        var BLANK_IMAGE_URL = 'images/s.gif';
+        var container;
+        var avatars = unpackAvatars(localStorage["ljaddPopupAvatars"]);
+        var names = [];
+
+        function getDataFromBackgroundPage()
+        {
+            var backgroundPage = chrome.extension.getBackgroundPage();
+            var menuFP = backgroundPage.getMenuFP();
+            container = document.createElement("div");
+            container.style.width = 500 - getScrollBarWidth() + "px";
+            document.body.appendChild(container);
+            var markAll = document.createElement("a");
+            markAll.href = "#";
+            markAll.style.color = "#999999";
+            markAll.style.fontFamily = "Arial, sans-serif";
+            markAll.style.fontSize = "12px";
+            container.style.textAlign = "right";
+            markAll.innerHTML = menuFP.markAllAsRead;
+            markAll.onclick = function() {
+                chrome.extension.sendRequest({type: "call", action: "ljaddMarkAllPostsAsRead"});
+                var imgs = document.getElementsByClassName("mark");
+                for(var i = 0; i < imgs.length; i++)
+                {
+                    imgs[i].src = 'images/checked-old.png';
+                    imgs[i].isNew = false;
+                    imgs[i].curEntriesLinks = imgs[i].curEntriesLinks.replace(/\x0b$/, "")
+                }
+            };
+            container.appendChild(markAll);
+            for (var i = 0; i < menuFP.numberOfEntries; i++)
+            {
+                createMenuItem(menuFP.newEntriesTexts[i], menuFP.curEntriesLinks[i], menuFP.replyFP, menuFP.replyHere)
+            }
+
+            loadAvatars();
+
+            setTimeout(function() {
+                if(window.innerHeight >= document.body.scrollHeight)
+                    container.style.width = 500 + "px";
+            }, 100);
+        }
+
+        function createMenuItem(newEntriesTexts, curEntriesLinks, replyFP, replyHere)
+        {
+            var menuitem = document.createElement("div");
+            menuitem.className = "menuitem";
+
+            container.appendChild(menuitem);
+
+            var isNew = curEntriesLinks.search(/\x0b$/) > -1;
+            var text = newEntriesTexts;
+            if(text.indexOf(":") > -1)
+            {
+                var name = text.substring(0, text.indexOf(":"));
+                var inPart = "";
+                if(name.indexOf(" ") > -1)
+                {
+                    inPart = name.substring(name.indexOf(" "), name.length);
+                    name = name.substring(0, name.indexOf(" "));
+                }
+                var url = typeof(avatars[name]) != "undefined" ? avatars[name]["url"] : BLANK_IMAGE_URL;
+                var markUrl = isNew ? 'images/checked-new.gif' : 'images/checked-old.png';
+                var ljhead = typeof(avatars[name]) != "undefined" ? avatars[name]["ljhead"] : "http://l-stat.livejournal.com/img/userinfo.gif?v=1";
+
+                var table = document.createElement("table");
+                table.cellPadding = 0;
+                table.cellSpacing = 0;
+                table.style.width = "100%";
+                var tbody = document.createElement("tbody");
+                table.appendChild(tbody);
+                var tr = document.createElement("tr");
+                tbody.appendChild(tr);
+                var td1 = document.createElement("td");
+                tr.appendChild(td1);
+                td1.align = "center";
+                td1.style.cursor = "hand";
+                td1.width = 16;
+                td1.rowSpan = 2;
+                var mark = document.createElement("img");
+                td1.appendChild(mark);
+                mark.src = markUrl;
+                mark.className = "mark";
+                mark.isNew = isNew;
+                mark.curEntriesLinks = curEntriesLinks;
+                td1.onclick = function() {
+                    mark.isNew = !mark.isNew;
+                    mark.src = mark.isNew ? 'images/checked-new.gif' : 'images/checked-old.png';
+                    if(mark.isNew)
+                        mark.curEntriesLinks = ljaddMarkThisPostAsUnRead(mark.curEntriesLinks);
+                    else
+                        mark.curEntriesLinks = ljaddMarkThisPostAsRead(mark.curEntriesLinks);
+                };
+                var td2 = document.createElement("td");
+                tr.appendChild(td2);
+                td2.width = 55;
+                td2.align = "middle";
+                td2.valign = "top";
+                td2.style.verticalAlign = "top";
+                td2.rowSpan = 2;
+                td2.innerHTML = "<img src='" + url + "' style='height:50px;-webkit-border-radius:5px' name='img_" + name + "'/>";
+                var td3 = document.createElement("td");
+                tr.appendChild(td3);
+                td3.valign = "top";
+                td3.style.verticalAlign = "top";
+                td3.style.color = "#0D2A59";
+                td3.style.fontFamily = "Arial, sans-serif";
+                td3.style.fontSize = "12px";
+                td3.style.cursor = "hand";
+                td3.innerHTML = "<img src='" + ljhead + "' name='ljhead_ + " + name + "' style='vertical-align: bottom; border: 0; padding-right: 1px;'/><b>" + name + "</b><font style='color:#666666'>" + inPart + "</font><br/>" + text.substring(name.length + inPart.length + 2, text.length);
+                td3.title = replyFP;
+                td3.onclick = function()
+                {
+                    if (mark.isNew) {
+                        ljaddOpenEntryByClick(mark.curEntriesLinks.replace(/\x0b$/, ""), event, 1);
+                        ljaddMarkThisPostAsRead(mark.curEntriesLinks);
+                    }
+                    else
+                        ljaddOpenEntryByClick(mark.curEntriesLinks, event, 1);
+                };
+                var tr2 = document.createElement("tr");
+                tbody.appendChild(tr2);
+                var td4 = document.createElement("td");
+                tr2.appendChild(td4);
+                td4.align = "right";
+                var reply = document.createElement("a");
+                td4.appendChild(reply);
+                reply.href = "#";
+                reply.style.color = "#999999";
+                reply.style.fontFamily = "Arial, sans-serif";
+                reply.style.fontSize = "12px";
+                reply.innerHTML = replyHere;
+                reply.onclick = function()
+                {
+                    var ev = {};
+                    ev.ctrlKey = true;
+                    if (mark.isNew) {
+                        ljaddOpenEntryByClick(mark.curEntriesLinks.replace(/\x0b$/, ""), ev, 1);
+                        ljaddMarkThisPostAsRead(mark.curEntriesLinks);
+                    }
+                    else
+                        ljaddOpenEntryByClick(mark.curEntriesLinks, ev, 1);
+                };
+                menuitem.appendChild(table);
+
+                if(url == BLANK_IMAGE_URL && names.join("&").indexOf(name) == -1)
+                {
+                    names.push(name);
+                }
+
+            }
+            else
+                menuitem.innerHTML = text;
+        }
+
+        function getScrollBarWidth () {
+            var inner = document.createElement('p');
+            inner.style.width = "100%";
+            inner.style.height = "200px";
+
+            var outer = document.createElement('div');
+            outer.style.position = "absolute";
+            outer.style.top = "0px";
+            outer.style.left = "0px";
+            outer.style.visibility = "hidden";
+            outer.style.width = "200px";
+            outer.style.height = "150px";
+            outer.style.overflow = "hidden";
+            outer.appendChild (inner);
+
+            document.body.appendChild (outer);
+            var w1 = inner.offsetWidth;
+            outer.style.overflow = 'scroll';
+            var w2 = inner.offsetWidth;
+            if (w1 == w2) w2 = outer.clientWidth;
+
+            document.body.removeChild (outer);
+
+            return (w1 - w2);
+        }
+
+        function unpackAvatars(storage)
+        {
+            if(storage == null || typeof(storage) == "undefined")
+                return {};
+
+            var result = {};
+            var temp = storage.split("&");
+            for(var i = 0; i < temp.length; i++)
+            {
+                var arr = temp[i].split("|");
+                var time = Number(arr[3]);
+                if(new Date().getTime() - time < 24 * 60 * 60 * 1000)
+                {
+                    result[arr[0]] = {};
+                    result[arr[0]]["url"] = arr[1];
+                    result[arr[0]]["ljhead"] = arr[2];
+                    result[arr[0]]["time"] = time;
+                }
+            }
+            return result;
+        }
+
+        function packAvatars(aAvatars)
+        {
+            var result = "";
+            for(var name in aAvatars)
+            {
+                if(result.length > 0)
+                    result += "&";
+                result += name + "|" + aAvatars[name]["url"] + "|" + aAvatars[name]["ljhead"] + "|" + aAvatars[name]["time"];
+            }
+            return result;
+        }
+
+        function loadAvatars()
+        {
+            setTimeout(function() {
+                if(names.length == 0)
+                    return;
+                var name = names.pop();
+                var req = new XMLHttpRequest();
+                req.open("GET", "http://www.livejournal.com/allpics.bml?user=" + name, true);
+                req.onreadystatechange  = function() {
+                    if (req.readyState != 4)
+                        return;
+
+                    var temp = req.responseText.substring(req.responseText.indexOf("'content-wrapper"));
+                    var temp2 = temp.substring(temp.indexOf("<img"));
+                    temp2 = temp2.substring(temp2.indexOf("src=") + 5);
+                    temp2 = temp2.substring(0, temp2.indexOf(" ") - 1);
+                    temp = temp.substring(temp.indexOf("<div"));
+                    temp = temp.substring(temp.indexOf("<img"));
+                    temp = temp.substring(temp.indexOf("src=") + 5);
+                    temp = temp.substring(0, temp.indexOf(" ") - 1);
+
+                    var imgs = document.getElementsByName("img_" + name);
+                    for(var i = 0; i < imgs.length; i++)
+                      imgs[i].src = temp;
+
+                    imgs = document.getElementsByName("ljhead_" + name);
+                    for(var i = 0; i < imgs.length; i++)
+                      imgs[i].src = temp2;
+
+                    avatars[name] = {};
+                    avatars[name]["url"] = temp;
+                    avatars[name]["ljhead"] = temp2;
+                    avatars[name]["time"] = new Date().getTime();
+
+                    if(names.length == 0)
+                        localStorage["ljaddPopupAvatars"] = packAvatars(avatars);
+                    else
+                    {
+                        name = names.pop();
+                        req.open("GET", "http://www.livejournal.com/allpics.bml?user=" + name, true);
+                        req.send(null);
+                    }
+                };
+                req.send(null);
+            }, 100);
+        }
+    </script>
+</head>
+<body onload="getDataFromBackgroundPage()" style="width: 512px; overflow-x: hidden; overflow-y: auto;background-color: #F9FAFB">
+
+</body>
+</html>

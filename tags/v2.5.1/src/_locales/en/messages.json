@@ -1,0 +1,617 @@
+{
+"loadEntryHere": {
+ "message": "Load entry"
+},
+"threadAdded": {
+ "message": "The list of comment watching has been updated."
+},
+"memaddHere": {
+ "message": "Add to memories"
+},
+"exportAbort": {
+ "message": "Abort exportation?"
+},
+"DOMEditTip8": {
+ "message": "Key \"Left\" = undo last change."
+},
+"wrongURL": {
+ "message": "Not a LiveJournal URL."
+},
+"anonymous": {
+ "message": "Anonymous"
+},
+"DOMEditTip7": {
+ "message": "Key \"Down\" = go back."
+},
+"DOMEditTip6": {
+ "message": "Key \"Up\" = go to the parent element."
+},
+"DOMEditTip5": {
+ "message": "Right button = apply style."
+},
+"commentUnfolderTip": {
+ "message": "Left button -> thread, middle -> comment, any + Ctrl/Meta -> to parent"
+},
+"DOMEditTip4": {
+ "message": "Middle button = cut out."
+},
+"newMessages": {
+ "message": "New messages"
+},
+"DOMEditTip3": {
+ "message": "Left mouse button on an element = delete."
+},
+"DOMEditTip2": {
+ "message": "Input a style manually"
+},
+"DOMEditTip1": {
+ "message": "Quit edit mode"
+},
+"DOMEditTip0": {
+ "message": "+ Ctrl/Meta = disable editing temporarily."
+},
+"toFlat1": {
+ "message": "Comments in the linear (temporal) format: first page"
+},
+"allCommentsInLast": {
+ "message": "on the last page of linear format"
+},
+"unfoldAllPages": {
+ "message": "Unfold all comment pages"
+},
+"reportBotHere": {
+ "message": "Report a bot"
+},
+"exportFail": {
+ "message": "Export was not complete."
+},
+"friends": {
+ "message": "> Friends"
+},
+"tomorrow": {
+ "message": "Tomorrow:"
+},
+"floatTip": {
+ "message": "(press Ctrl/Meta for load into a float block)"
+},
+"watchedThreadsInfo": {
+ "message": "The list of comment watching (threads marked with gray background, posts - with common one).<br>Widen the list via context menu of links to posts or separate threads.<br>To add a current page to the list you may use the status bar menu.<br>If all comments on the last page of linear format are new, previous pages should be checked up as well."
+},
+"linkSearchTitle": {
+ "message": "Search links to this page (+ Ctrl/Meta = output into an inline block)"
+},
+"shortcutUsed": {
+ "message": "Key combination is already used."
+},
+"noSubject": {
+ "message": "no subject"
+},
+"batchEditingFail": {
+ "message": "Batch editing was not complete."
+},
+"fileNotCreated": {
+ "message": "Can't create the file."
+},
+"batchEditingComplete": {
+ "message": "Batch editing complete."
+},
+"list": {
+ "message": "Post list generation"
+},
+"allCommentsInThread": {
+ "message": "in the thread"
+},
+"noStyle": {
+ "message": "The style is not applicable to this page."
+},
+"newComments": {
+ "message": "New comments"
+},
+"exportJournal": {
+ "message": "journal"
+},
+"currentTabTip": {
+ "message": "(press Ctrl/Meta to open in the current tab)"
+},
+"friendsResetChanges": {
+ "message": "Clear change list"
+},
+"replyHere": {
+ "message": "Reply"
+},
+"watchThread": {
+ "message": "Watch the comments"
+},
+"editMyEntry": {
+ "message": "Edit entry"
+},
+"markAsRead": {
+ "message": "Mark as read"
+},
+"markAllAsRead": {
+ "message": "Mark all as read"
+},
+"FriendsPageBirthdays": {
+ "message": "Friends' birthdays"
+},
+"browseImagesTrigger": {
+ "message": "Browse images starting from this one"
+},
+"FriendsPageChanged": {
+ "message": "Friends page changed"
+},
+"batchEditingAbort": {
+ "message": "Abort editing?"
+},
+"exportNoTags": {
+ "message": "No tags"
+},
+"browseImagesStop": {
+ "message": "Quit image browsing mode"
+},
+"tagList": {
+ "message": "Tag list"
+},
+"open": {
+ "message": "Open for perusal"
+},
+"exportSave": {
+ "message": "Page saving"
+},
+"deleteThread": {
+ "message": "Delete from the list"
+},
+"watchedThreadsTitle": {
+ "message": "The list of comment watching"
+},
+"messages": {
+ "message": "Messages:"
+},
+"ljDeleted": {
+ "message": "(deleted)"
+},
+"loadComments": {
+ "message": "Load comments"
+},
+"lastCheckTime": {
+ "message": "The last check time"
+},
+"close": {
+ "message": "Close"
+},
+"exportCode": {
+ "message": "<Code>"
+},
+"friendsChanged": {
+ "message": "Friends list changed"
+},
+"noBirthdays": {
+ "message": "no birthdays"
+},
+"noWatchedThreads": {
+ "message": "The list of comment watching is empty."
+},
+"today": {
+ "message": "Today:"
+},
+"homePage": {
+ "message": "http://ljaddons.livejournal.com/14787.html"
+},
+"exportTitle": {
+ "message": "Export"
+},
+"replyFP": {
+ "message": "Press Ctrl/Meta for reply"
+},
+"watchNotEdit": {
+ "message": "Please do not edit the list during the checks."
+},
+"watchedPost": {
+ "message": "POST"
+},
+"noPost": {
+ "message": "No post found."
+},
+"checkThread": {
+ "message": "Check"
+},
+"unfoldPageComments": {
+ "message": "Unfold all comments on this page"
+},
+"openNewComments": {
+ "message": "Open new comments for perusal"
+},
+"threadsErrors": {
+ "message": "Because of connection errors there are unchecked addresses:"
+},
+"fileNotFound": {
+ "message": "File not found."
+},
+"openFeed": {
+ "message": "Open RSS (+ Shift = Atom, + Ctrl/Meta = in the current tab)"
+},
+"noData": {
+ "message": "No data"
+},
+"addNetImportURL": {
+ "message": "Please enter the URL in the settings."
+},
+"loading": {
+ "message": "Loading"
+},
+"batchEditingSelectAction": {
+ "message": "Please select the action."
+},
+"watchedThread": {
+ "message": "THREAD"
+},
+"exportComplete": {
+ "message": "Export complete."
+},
+"noImages": {
+ "message": "There are no appropriate images on this page."
+},
+"editMLE": {
+ "message": "Press Ctrl/Meta to edit"
+},
+"newPosts": {
+ "message": "New posts:"
+},
+"exportMemories": {
+ "message": "memories"
+},
+"verifyThread": {
+ "message": "Please verify actuality of the link"
+},
+"tagFillingListTitle": {
+ "message": "Use Ctrl/Meta to select several separate tags and Shift to select several continuous tags."
+},
+"regexpError": {
+ "message": "Error in the regular expression"
+},
+"exportHeadByTime": {
+ "message": "By time"
+},
+"noNewComments": {
+ "message": "No new comments found at the time of the last check"
+},
+"allComments": {
+ "message": "All comments"
+},
+"copyB": {
+ "message": "Press Ctrl/Meta to copy username"
+},
+"error": {
+ "message": "No connection or data parsing error. Please wait or try again."
+},
+"FpError": {
+ "message": "Data parsing error. Please wait or try again. New posts are checked by mobile Friends page, which is generated from \"Mobile View\" group or in the absence thereof - from \"Default View\" group. You may use these groups as a filter for extension. If no filter needed, delete these groups. If the program does not see your Friends page, check whether you have these groups as empty default drafts."
+},
+"ljPurged": {
+ "message": "(purged)"
+},
+"threadNotAdded": {
+ "message": "Comments are already watched."
+},
+"noKey": {
+ "message": "No proper key found."
+},
+"friendsNotChanged": {
+ "message": "Friends list not changed"
+},
+"batchEditingNoFriendgroups": {
+ "message": "No friend groups found."
+},
+"noMultipleUnfolding": {
+ "message": "Multiple unfolding on the same page is not supported."
+},
+"profileHere": {
+ "message": "Load Profile"
+},
+"linkSearchNoURL": {
+ "message": "URL for requests are not defined. Create the list in the settings."
+},
+"require": {
+ "message": "Please correctly fill the fields, marked by asterisk."
+},
+"exportProfile": {
+ "message": "Profile"
+},
+"exportHeadByTags": {
+ "message": "By tags"
+},
+"batchEditingTitle": {
+ "message": "Journal batch editing"
+},
+"toTree": {
+ "message": "Comments in the tree-like format"
+},
+"notSuitablePage": {
+ "message": "This function is not applicable to this page."
+},
+"subscribeHere": {
+ "message": "Subscribe"
+},
+"ljSuspended": {
+ "message": "(suspended)"
+},
+"addFriendHere": {
+ "message": "Add/remove friend"
+},
+"browseImagesTip2": {
+ "message": "Right button = previous image."
+},
+"browseImagesTip1": {
+ "message": "Left mouse button = next image."
+},
+"noTitle": {
+ "message": "no title"
+},
+"browseImagesTip0": {
+ "message": "+ Ctrl/Meta = disable browsing temporarily."
+},
+"toFlatN": {
+ "message": "Comments in the linear (temporal) format: last page"
+},
+"batchEditingProcess": {
+ "message": "Posts changing"
+},
+"editPostTags": {
+ "message": "Edit post tags"
+},
+"friendOf": {
+ "message": "< Friend of"
+},
+"addEditUserTip": {
+ "message": "Add/edit user tip"
+},
+"checkThreads": {
+ "message": "Check all"
+},
+"batchEditingSelectFriendgroups": {
+ "message": "Please select the friend groups."
+},
+
+
+
+
+
+
+
+
+
+
+"ljaddReading": {
+ "message": "Reading"
+},
+"ljaddMainURL": {
+ "message": "Your journal, full URL:"
+},
+"ljaddFrPgURL": {
+ "message": "Your Friends page, full URL:"
+},
+"ljaddFullProfile": {
+ "message": "Always open full user's profile"
+},
+"ljaddAddCutUnfolders": {
+ "message": "Add cut unfolders"
+},
+"ljaddAddTriggersImagesOpt": {
+ "message": "Float icons for image functions"
+},
+"ljaddAddTriggersOpt": {
+ "message": "Float icons for link functions"
+},
+"ljaddAddTriggersHide": {
+ "message": "Interval till hiding icons (milliseconds):"
+},
+"ljaddAddTriggersShow": {
+ "message": "Interval till showing icons (milliseconds):"
+},
+"ljaddFriendsPageMaxWidthOpt": {
+ "message": "Maximum image width in the Friends page:"
+},
+"ljaddMinImageWidthForBrowseOpt": {
+ "message": "Minimum for the browse mode:"
+},
+"ljaddFormatAppendOpt": {
+ "message": "Open all LJ cross-links..."
+},
+"ljaddFormatFilter": {
+ "message": "Only URL with substrings:"
+},
+"ljaddFormatFilterTip": {
+ "message": "Comma separated list; * = all; prepend ! to substring to exclude URL; regular expressions are not used"
+},
+"ljaddFormatLynx": {
+ "message": "in light format"
+},
+"ljaddFormatLynxOrMine": {
+ "message": "in my style, if light one is not applicable"
+},
+"ljaddFormatMine": {
+ "message": "in my style"
+},
+"ljaddUserTips": {
+ "message": "Tips for LJ-users (pop up above a profile link; template: \"username = tip\", one pair on a line)"
+},
+"ljaddUserTipsOpt": {
+ "message": "Add tip text to links (otherwise - only pop-up tip)"
+},
+"ljInstantComment": {
+ "message": "LJ Instant Comment"
+},
+"ljTime": {
+ "message": "LJ Times"
+},
+
+"ljaddCheck": {
+ "message": "Checking"
+},
+"ljaddCheckHead": {
+ "message": "Periodically check (minutes):"
+},
+"ljaddFriendsPageCheckOpt": {
+ "message": "friends' posts:"
+},
+"ljaddRefresh": {
+ "message": "Refresh information"
+},
+"ljaddFriendsPageUpdate": {
+ "message": "after Friends page loaded"
+},
+"ljaddMessagesUpdate": {
+ "message": "after Message Center closed"
+},
+"ljaddNotificationOpt": {
+ "message": "Show popup"
+},
+"ljaddBadgeOpt": {
+ "message": "Show unread messages count"
+},
+"ljaddIconClickAction": {
+ "message": "Icon click action"
+},
+"ljaddActionShowPopup": {
+ "message": "Show messages menu"
+},
+"ljaddActionOpenFP": {
+ "message": "Open friend's page"
+},
+"ljaddNotificationHeadOpen": {
+ "message": "Result of click on popup"
+},
+"ljaddNotificationFpOpen": {
+ "message": "friends posts:"
+},
+"ljaddNotificationFpOpenAll": {
+ "message": "Friends page"
+},
+"ljaddNotificationFpOpenNewRead": {
+ "message": "new (read)"
+},
+"ljaddNotificationFpOpenNewReply": {
+ "message": "new (reply)"
+},
+"ljaddReverseOrderOpt": {
+ "message": "Use reverse order of posts in menu"
+},
+"ljaddNotificationTime": {
+ "message": "Time while popup is shown (seconds)"
+},
+
+
+"ljaddInsets": {
+ "message": "Insets"
+},
+"ljaddInsetsList": {
+ "message": "List of insets:"
+},
+"ljaddTextName": {
+ "message": "* Name:"
+},
+"ljaddInsetsImage": {
+ "message": "Image URL (optionally):"
+},
+"ljaddInsetsImageOnly": {
+ "message": "Instead of name"
+},
+"ljaddInsetsText": {
+ "message": "* Inset text (<del>^ = clipboard</del>, ^^ = selected text, ^^^ = random quote, \\^ = ^):"
+},
+"ljaddTextAdd": {
+ "message": "New"
+},
+"ljaddTextSave": {
+ "message": "Save"
+},
+"ljaddDelete": {
+ "message": "Delete"
+},
+"ljaddRandomQuotes": {
+ "message": "Random quotes (divide by line with one dot):"
+},
+"ljaddAddInsetBlock": {
+ "message": "Inset block (please reload opened pages after changing):"
+},
+"ljaddAddInsetBlockTop": {
+ "message": "top"
+},
+"ljaddAddInsetBlockBottom": {
+ "message": "bottom"
+},
+"ljaddAddInsetBlockLeft": {
+ "message": "left"
+},
+"ljaddAddInsetBlockRight": {
+ "message": "right"
+},
+"ljaddAddInsetBlockFloat": {
+ "message": "float"
+},
+
+
+"ljaddCommunication": {
+ "message": "Communication"
+},
+"ljaddRandomizeUserpics": {
+ "message": "Randomize userpics"
+},
+"ljaddAddCommentButtons": {
+ "message": "Buttons above comment block"
+},
+"ljaddAddStyleMine": {
+ "message": "Add \"style=mine\" to the current URL"
+},
+"ljaddAddCommentUnfolders": {
+ "message": "Comment unfolders"
+},
+"ljaddBigUnfolders": {
+ "message": "Use big unfolders"
+},
+"ljaddHideCommentFolders": {
+ "message": "Hide comment folders till mouse on"
+},
+"ljaddAutoUnfold": {
+ "message": "Automatically unfold comments"
+},
+"ljaddAutoUnfoldAllPages": {
+ "message": "All Pages"
+},
+"ljaddLinkSearch": {
+ "message": "URL for page link searching (one request URL per line; ^ = URL of desired page)"
+},
+
+"ljaddChanges": {
+ "message": "Changes"
+},
+
+"ljaddExport": {
+ "message": "Export"
+},
+"ljaddImport": {
+ "message": "Import"
+},
+"ljaddReset": {
+ "message": "Reset"
+},
+"ljaddOk": {
+ "message": "OK"
+},
+"ljaddCancel": {
+ "message": "Cancel"
+},
+"ljaddApply": {
+ "message": "Apply"
+},
+"ljaddSaveAllChanges": {
+ "message": "Save all changes?"
+},
+"ljaddNotForAllStyles": {
+ "message": "Not for all styles"
+},
+"ljaddResetToDefaults": {
+ "message": "Reset to defaults?"
+}
+
+}
