@@ -18,11 +18,13 @@
         var container;
         var avatars = unpackAvatars(localStorage["ljaddPopupAvatars"]);
         var names = [];
+        var Strings;
 
         function getDataFromBackgroundPage()
         {
             var backgroundPage = chrome.extension.getBackgroundPage();
             var menuFP = backgroundPage.getMenuFP();
+            Strings = menuFP.strings;
             container = document.createElement("div");
             container.style.width = 500 - getScrollBarWidth() + "px";
             document.body.appendChild(container);
@@ -32,7 +34,7 @@
             markAll.style.fontFamily = "Arial, sans-serif";
             markAll.style.fontSize = "12px";
             container.style.textAlign = "right";
-            markAll.innerHTML = menuFP.markAllAsRead;
+            markAll.innerHTML = Strings.markAllAsRead;
             markAll.onclick = function() {
                 chrome.extension.sendRequest({type: "call", action: "ljaddMarkAllPostsAsRead"});
                 var imgs = document.getElementsByClassName("mark");
@@ -46,10 +48,9 @@
             container.appendChild(markAll);
             for (var i = 0; i < menuFP.numberOfEntries; i++)
             {
-                createMenuItem(menuFP.newEntriesTexts[i], menuFP.curEntriesLinks[i], menuFP.replyFP, menuFP.replyHere)
+                createMenuItem(menuFP.newEntriesTexts[i], menuFP.curEntriesLinks[i])
             }
 
-            loadAvatars();
 
             setTimeout(function() {
                 if(window.innerHeight >= document.body.scrollHeight)
@@ -57,7 +58,7 @@
             }, 100);
         }
 
-        function createMenuItem(newEntriesTexts, curEntriesLinks, replyFP, replyHere)
+        function createMenuItem(newEntriesTexts, curEntriesLinks)
         {
             var menuitem = document.createElement("div");
             menuitem.className = "menuitem";
@@ -124,7 +125,7 @@
                 td3.style.fontSize = "12px";
                 td3.style.cursor = "hand";
                 td3.innerHTML = "<img src='" + ljhead + "' name='ljhead_ + " + name + "' style='vertical-align: bottom; border: 0; padding-right: 1px;'/><b>" + name + "</b><font style='color:#666666'>" + inPart + "</font><br/>" + text.substring(name.length + inPart.length + 2, text.length);
-                td3.title = replyFP;
+                td3.title = Strings.replyFP;
                 td3.onclick = function()
                 {
                     if (mark.isNew) {
@@ -145,7 +146,7 @@
                 reply.style.color = "#999999";
                 reply.style.fontFamily = "Arial, sans-serif";
                 reply.style.fontSize = "12px";
-                reply.innerHTML = replyHere;
+                reply.innerHTML = Strings.replyHere;
                 reply.onclick = function()
                 {
                     var ev = {};
@@ -195,86 +196,7 @@
             return (w1 - w2);
         }
 
-        function unpackAvatars(storage)
-        {
-            if(storage == null || typeof(storage) == "undefined")
-                return {};
 
-            var result = {};
-            var temp = storage.split("&");
-            for(var i = 0; i < temp.length; i++)
-            {
-                var arr = temp[i].split("|");
-                var time = Number(arr[3]);
-                if(new Date().getTime() - time < 24 * 60 * 60 * 1000)
-                {
-                    result[arr[0]] = {};
-                    result[arr[0]]["url"] = arr[1];
-                    result[arr[0]]["ljhead"] = arr[2];
-                    result[arr[0]]["time"] = time;
-                }
-            }
-            return result;
-        }
-
-        function packAvatars(aAvatars)
-        {
-            var result = "";
-            for(var name in aAvatars)
-            {
-                if(result.length > 0)
-                    result += "&";
-                result += name + "|" + aAvatars[name]["url"] + "|" + aAvatars[name]["ljhead"] + "|" + aAvatars[name]["time"];
-            }
-            return result;
-        }
-
-        function loadAvatars()
-        {
-            setTimeout(function() {
-                if(names.length == 0)
-                    return;
-                var name = names.pop();
-                var req = new XMLHttpRequest();
-                req.open("GET", "http://www.livejournal.com/allpics.bml?user=" + name, true);
-                req.onreadystatechange  = function() {
-                    if (req.readyState != 4)
-                        return;
-
-                    var temp = req.responseText.substring(req.responseText.indexOf("'content-wrapper"));
-                    var temp2 = temp.substring(temp.indexOf("<img"));
-                    temp2 = temp2.substring(temp2.indexOf("src=") + 5);
-                    temp2 = temp2.substring(0, temp2.indexOf(" ") - 1);
-                    temp = temp.substring(temp.indexOf("<div"));
-                    temp = temp.substring(temp.indexOf("<img"));
-                    temp = temp.substring(temp.indexOf("src=") + 5);
-                    temp = temp.substring(0, temp.indexOf(" ") - 1);
-
-                    var imgs = document.getElementsByName("img_" + name);
-                    for(var i = 0; i < imgs.length; i++)
-                      imgs[i].src = temp;
-
-                    imgs = document.getElementsByName("ljhead_" + name);
-                    for(var i = 0; i < imgs.length; i++)
-                      imgs[i].src = temp2;
-
-                    avatars[name] = {};
-                    avatars[name]["url"] = temp;
-                    avatars[name]["ljhead"] = temp2;
-                    avatars[name]["time"] = new Date().getTime();
-
-                    if(names.length == 0)
-                        localStorage["ljaddPopupAvatars"] = packAvatars(avatars);
-                    else
-                    {
-                        name = names.pop();
-                        req.open("GET", "http://www.livejournal.com/allpics.bml?user=" + name, true);
-                        req.send(null);
-                    }
-                };
-                req.send(null);
-            }, 100);
-        }
     </script>
 </head>
 <body onload="getDataFromBackgroundPage()" style="width: 512px; overflow-x: hidden; overflow-y: auto;background-color: #F9FAFB">

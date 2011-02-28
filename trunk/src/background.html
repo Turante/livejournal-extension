@@ -6,7 +6,7 @@
 <script>
 var ljaddCheckerFP;
 var ljaddFPContainer = document.createElement("div");
-var menuFP = {numberOfEntries: 0, newEntriesTexts: [], curEntriesLinks: [], replyFP: "", replyHere: "", markAllAsRead: ""};
+var menuFP = {numberOfEntries: 0, newEntriesTexts: [], curEntriesLinks: [], strings: Strings};
 
 initStrings();
 initDefaults();
@@ -170,7 +170,7 @@ function ljaddRestartCheckFriendsPage() {
 /*************************************************************************************************/
 function ljaddCheckFriendsPage() {
 	chrome.browserAction.setIcon({path: chrome.extension.getURL("images/pencil_16_dis.png")});
-	menuFP = {numberOfEntries: 0, newEntriesTexts: [], curEntriesLinks: [], replyFP: "", replyHere: "", markAllAsRead: ""};
+	menuFP = {numberOfEntries: 0, newEntriesTexts: [], curEntriesLinks: [], strings: Strings};
 	var checkTime = Date().match(/\d+:\d+/);
 
 	var req = new XMLHttpRequest();
@@ -203,7 +203,7 @@ function ljaddCheckFriendsPage() {
 		if (numberOfEntries == 0) {
 			chrome.browserAction.setIcon({path: chrome.extension.getURL("images/pencil_16_dis.png")});
 			if(localStorage["ljaddBadgeOpt"] == "true")
-				chrome.browserAction.setBadgeText({text: "x"})
+				chrome.browserAction.setBadgeText({text: "x"});
 			chrome.browserAction.setTitle({title: (checkTime + "\n" + Strings.FpError)});
 			return;
 		}
@@ -297,10 +297,27 @@ function ljaddCheckFriendsPage() {
 			}
 		}
 
-		chrome.browserAction.setTitle({title: tooltip});
+        var avatars = unpackAvatars(localStorage["ljaddPopupAvatars"]);
+        var names = [];
+        for(var i = 0; i < numberOfEntries; i++)
+        {
+            var text = newEntriesTexts[i];
+            if(text.indexOf(":") > -1)
+            {
+                var name = text.substring(0, text.indexOf(":"));
+                if(name.indexOf(" ") > -1)
+                    name = name.substring(0, name.indexOf(" "));
+
+                if(typeof(avatars[name]) == "undefined")
+                    names.push(name);
+            }
+        }
+        loadAvatars(names, avatars);
+
+        chrome.browserAction.setTitle({title: tooltip});
         chrome.browserAction.setIcon({path: chrome.extension.getURL("images/pencil_16.png")});
 
-		menuFP = {numberOfEntries: numberOfEntries, newEntriesTexts: newEntriesTexts, curEntriesLinks: curEntriesLinks, replyFP: Strings.replyFP, replyHere: Strings.replyHere, markAllAsRead: Strings.markAllAsRead};
+		menuFP = {numberOfEntries: numberOfEntries, newEntriesTexts: newEntriesTexts, curEntriesLinks: curEntriesLinks, strings: Strings};
 
 		if (addNumber) {
 			if ((localStorage["ljaddNotificationOpt"] != "false")){
@@ -336,6 +353,34 @@ function ljaddCheckFriendsPage() {
 	}
 
 	req.send(null);
+}
+
+function loadAvatars(names, avatars)
+{
+    if(names.length == 0)
+        return;
+    var req = new XMLHttpRequest();
+    for(var i = 0; i < names.length; i++)
+    {
+        var name = names[i];
+        req.open("GET", "http://www.livejournal.com/allpics.bml?user=" + name, false);
+        req.send(null);
+        var temp = req.responseText.substring(req.responseText.indexOf("'content-wrapper"));
+        var temp2 = temp.substring(temp.indexOf("<img"));
+        temp2 = temp2.substring(temp2.indexOf("src=") + 5);
+        temp2 = temp2.substring(0, temp2.indexOf(" ") - 1);
+        temp = temp.substring(temp.indexOf("<div"));
+        temp = temp.substring(temp.indexOf("<img"));
+        temp = temp.substring(temp.indexOf("src=") + 5);
+        temp = temp.substring(0, temp.indexOf(" ") - 1);
+
+        avatars[name] = {};
+        avatars[name]["url"] = temp;
+        avatars[name]["ljhead"] = temp2;
+        avatars[name]["time"] = new Date().getTime();
+
+    }
+    localStorage["ljaddPopupAvatars"] = packAvatars(avatars);
 }
 
 function getMenuFP()
