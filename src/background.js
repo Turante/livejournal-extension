@@ -1,3 +1,5 @@
+var AVATAR_LIVE_TIME = 3 * 24 * 60 * 60 * 1000;
+
 function ljaddChangeLocation(target, add, notify) {
 	if (typeof target == "string") {
 		if (target.search(/http:\/\/.+?\.livejournal.com/i) == -1) {
@@ -436,3 +438,36 @@ function ljaddCheckURLtoOpen(URL) {
 }
 /*************************************************************************************************/
 
+function unpackAvatars(storage)
+{
+    if(storage == null || typeof(storage) == "undefined")
+        return {};
+
+    var result = {};
+    var temp = storage.split("&");
+    for(var i = 0; i < temp.length; i++)
+    {
+        var arr = temp[i].split("|");
+        var time = Number(arr[3]);
+        if(new Date().getTime() - time < AVATAR_LIVE_TIME)
+        {
+            result[arr[0]] = {};
+            result[arr[0]]["url"] = arr[1];
+            result[arr[0]]["ljhead"] = arr[2];
+            result[arr[0]]["time"] = time;
+        }
+    }
+    return result;
+}
+
+function packAvatars(aAvatars)
+{
+    var result = "";
+    for(var name in aAvatars)
+    {
+        if(result.length > 0)
+            result += "&";
+        result += name + "|" + aAvatars[name]["url"] + "|" + aAvatars[name]["ljhead"] + "|" + aAvatars[name]["time"];
+    }
+    return result;
+}
