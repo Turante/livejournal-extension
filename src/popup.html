@@ -17,7 +17,6 @@
         var BLANK_IMAGE_URL = 'images/s.gif';
         var container;
         var avatars = unpackAvatars(localStorage["ljaddPopupAvatars"]);
-        var names = [];
         var Strings;
 
         function getDataFromBackgroundPage()
@@ -159,11 +158,6 @@
                         ljaddOpenEntryByClick(mark.curEntriesLinks, ev, 1);
                 };
                 menuitem.appendChild(table);
-
-                if(url == BLANK_IMAGE_URL && names.join("&").indexOf(name) == -1)
-                {
-                    names.push(name);
-                }
 
             }
             else

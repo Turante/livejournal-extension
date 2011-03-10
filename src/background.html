@@ -4,12 +4,15 @@
 <script src="defaults.js"> </script>
 <script src="background.js"> </script>
 <script>
+var EXT_VERSION = "2.5.4";
+
 var ljaddCheckerFP;
 var ljaddFPContainer = document.createElement("div");
 var menuFP = {numberOfEntries: 0, newEntriesTexts: [], curEntriesLinks: [], strings: Strings};
 
 initStrings();
 initDefaults();
+checkVersion();
 
 chrome.extension.onRequest.addListener(
   function(request, sender, sendResponse)
@@ -308,7 +311,7 @@ function ljaddCheckFriendsPage() {
                 if(name.indexOf(" ") > -1)
                     name = name.substring(0, name.indexOf(" "));
 
-                if(typeof(avatars[name]) == "undefined")
+                if(typeof(avatars[name]) == "undefined" && names.join("&").indexOf(name) == -1)
                     names.push(name);
             }
         }
@@ -348,7 +351,7 @@ function ljaddCheckFriendsPage() {
 		ljaddFpMenu.appendChild(menuitem);
 		chrome.browserAction.setIcon({path: chrome.extension.getURL("images/pencil_16_dis.png")});
 		if(localStorage["ljaddBadgeOpt"] == "true")
-			chrome.browserAction.setBadgeText({text: "x"})
+			chrome.browserAction.setBadgeText({text: "x"});
 		chrome.browserAction.setTitle({title: (checkTime + " - " + Strings.error)});
 	}
 
@@ -365,18 +368,24 @@ function loadAvatars(names, avatars)
         var name = names[i];
         req.open("GET", "http://www.livejournal.com/allpics.bml?user=" + name, false);
         req.send(null);
+
         var temp = req.responseText.substring(req.responseText.indexOf("'content-wrapper"));
-        var temp2 = temp.substring(temp.indexOf("<img"));
-        temp2 = temp2.substring(temp2.indexOf("src=") + 5);
-        temp2 = temp2.substring(0, temp2.indexOf(" ") - 1);
-        temp = temp.substring(temp.indexOf("<div"));
-        temp = temp.substring(temp.indexOf("<img"));
-        temp = temp.substring(temp.indexOf("src=") + 5);
-        temp = temp.substring(0, temp.indexOf(" ") - 1);
+        var avatar = "images/s.gif";
+        if(temp.indexOf("http://l-userpic.livejournal.com") != -1)
+        {
+            avatar = temp.substring(temp.indexOf("http://l-userpic.livejournal.com"));
+            avatar = avatar.substring(0, avatar.indexOf(" " ) - 1);
+        }
+        var head = "http://l-stat.livejournal.com/img/userinfo.gif?v=2";;
+        if(temp.indexOf("http://files.livejournal.com/userhead") != -1)
+        {
+            head = temp.substring(temp.indexOf("http://files.livejournal.com/userhead"));
+            head = head.substring(0, head.indexOf(" " ) - 1);
+        }
 
         avatars[name] = {};
-        avatars[name]["url"] = temp;
-        avatars[name]["ljhead"] = temp2;
+        avatars[name]["url"] = avatar;
+        avatars[name]["ljhead"] = head;
         avatars[name]["time"] = new Date().getTime();
 
     }
@@ -407,6 +416,20 @@ chrome.browserAction.onClicked.addListener(function(tab) {
 			chrome.tabs.create({url: fpURL, selected: true});
 		});
 });
+
+function checkVersion()
+{
+    var oldVersion = localStorage["ljaddExtVersion"];
+
+    if(typeof(oldVersion) == "undefined") //2.5.2 version
+    {
+        localStorage["ljaddPopupAvatars"] = "";
+    }
+//    else if(oldVersion == "2.5.3")
+//    {}
+
+    localStorage["ljaddExtVersion"] = EXT_VERSION;
+}
 
 if(Number(localStorage["ljaddIconClickAction"]) == 0)
 	chrome.browserAction.setPopup({popup: "popup.html"});
