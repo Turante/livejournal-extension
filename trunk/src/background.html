@@ -345,7 +345,7 @@ function ljaddCheckFriendsPage() {
 	};
 	req.onerror = function() {
 		var menuitem = document.createElement("menuitem");
-		menuitem.setAttribute("label", ljaddStrings.noData);
+		menuitem.setAttribute("label", Strings.noData);
 		menuitem.setAttribute("class", "ljaddFpEntry");
 		menuitem.setAttribute("disabled", "true");
 		ljaddFpMenu.appendChild(menuitem);
