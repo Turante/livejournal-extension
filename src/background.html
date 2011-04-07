@@ -344,11 +344,6 @@ function ljaddCheckFriendsPage() {
 //		ljaddHideElements();
 	};
 	req.onerror = function() {
-		var menuitem = document.createElement("menuitem");
-		menuitem.setAttribute("label", Strings.noData);
-		menuitem.setAttribute("class", "ljaddFpEntry");
-		menuitem.setAttribute("disabled", "true");
-		ljaddFpMenu.appendChild(menuitem);
 		chrome.browserAction.setIcon({path: chrome.extension.getURL("images/pencil_16_dis.png")});
 		if(localStorage["ljaddBadgeOpt"] == "true")
 			chrome.browserAction.setBadgeText({text: "x"});
@@ -441,4 +436,17 @@ ljaddRestartCheckFriendsPage();
 
 </script>
 </head>
+<body>
+   <script>
+     var _gaq = _gaq || [];
+     _gaq.push(['_setAccount', 'UA-22429327-2']);
+     _gaq.push(['_trackPageview']);
+
+     (function() {
+       var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+       ga.src = 'https://ssl.google-analytics.com/ga.js';
+       var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+     })();
+   </script>
+ </body>
 </html>
