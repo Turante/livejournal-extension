@@ -629,7 +629,8 @@ function ljaddChangeLocation(target, add, notify) {
 		else {
 			searchDataNew = (curAdd? ("?" + curAdd) : "");
 		}
-		loc.search = searchDataNew;
+		if(searchDataNew != '' || loc.search != '')
+            loc.search = searchDataNew;
 	}
 }
 /*************************************************************************************************/
