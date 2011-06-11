@@ -2572,7 +2572,7 @@ function ljaddLoadEntryHere(event) {
 	{
 		container.innerHTML = response.html;
 		var entryDiv = doc.evaluate(
-			"./div",
+			"./div[not(@id='fb-root')]",
 			container,null,XPathResult.FIRST_ORDERED_NODE_TYPE,null
 		).singleNodeValue;
 		if (!entryDiv) {
