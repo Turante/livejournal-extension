@@ -746,7 +746,7 @@ function ljaddUnfoldCut() {
 	var body = doc.body;
 	var cutId = cutLink.hash.replace(/^#/, "");
 	var cutURL = cutLink.getAttribute("href");
-	cutURL = ljaddChangeLocation(cutURL, "light&mode=reply", false);
+	cutURL = ljaddChangeLocation(cutURL, "light", false);
 	cutLink.parentNode.appendChild(doc.createTextNode(":"));
 	unfolder.setAttribute("style", "");
 	var path = chrome.extension.getURL("images/throbber.gif");
